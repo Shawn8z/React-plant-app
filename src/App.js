@@ -5,18 +5,19 @@ function App() {
   return (
     <div className="App">
 
-      <head>
-        <title>Grow App</title>
-        <meta charset="utf-8"/>
-      </head>
-
-      <body>
-
       <div class="navbar">
-        <h1>This is where navbar go</h1>
+        <h1>nav bar component</h1>
       </div>
 
-      </body>
+      <div class="info-block">
+        <h1>Info block component</h1>
+      </div>
+
+      <div class="garden">
+        <div>
+          <h1>List of users garden component</h1>
+        </div>
+      </div>
 
     </div>
   );
