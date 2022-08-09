@@ -1,9 +1,5 @@
 
-body {
-  margin: auto;
-  height: 1300px;
-  margin: 0 0 0 0;
-}
+
 
 
 .navbar {
@@ -12,15 +8,10 @@ body {
 }
 
 .info-block {
-  background-color: rgba(223, 236, 162, 0.932);
-  height: 300px;
+  width: 750px;
 }
 
-.garden {
-  margin: auto;
-  text-align: center;
-  background-color: rgba(238, 217, 172, 0.932);
-  border-radius: 5px;
-  height: 600px;
+.card-deck {
+  display: flex;
+  flex-flow: row wrap
 }
-
