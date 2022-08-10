@@ -11,7 +11,7 @@
   width: 750px;
 }
 
-.card-deck {
-  display: flex;
-  flex-flow: row wrap
+.card {
+  height: 300px;
 }
+
