@@ -7,17 +7,20 @@ import Modal from 'react-bootstrap/Modal'
 
 // import Modal from "./Components/modal";
 import MainNavbar from './Components/navbars/main-navbar';
+import ProfileNavbar from './Components/navbars/profile-navbar';
+
 import MainBody from './Components/bodys/main-body';
+import ProfileBody from './Components/bodys/profile-body';
+
 import LoginModal from './Components/modals/login-modal';
 import RegisterModal from './Components/modals/register-modal';
 
-
+import TooltipContent from './Components/tooltipContent';
 
 
 function App(props) {
 
-  // const [openModal, setOpenModal] = useState(false);
-  // const [show, setShow] = useState(false);
+
 const [showLogin, setShowLogin] = useState(false);
 const [showRegister, setShowRegister] = useState(false);
 
@@ -35,10 +38,11 @@ const handleShowRegister = () => setShowRegister(true);
     <div className="App">
 
 
-      <MainNavbar 
+      {/* <MainNavbar 
         handleShowRegister={handleShowRegister}
         handleShowLogin={handleShowLogin}
-      />
+      /> */}
+      <ProfileNavbar />
 
       <LoginModal
         show={showLogin}
@@ -50,7 +54,8 @@ const handleShowRegister = () => setShowRegister(true);
       />
 
 
-      <MainBody />
+      {/* <MainBody /> */}
+      <ProfileBody />
     
       
 
