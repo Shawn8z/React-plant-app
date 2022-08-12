@@ -25,8 +25,7 @@ function LoginModal(props) {
                 dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
                 consectetur ac, vestibulum at eros.
                 </p>
-                {/* <Login /> */}
-                <Register />
+                <Login />
             </Modal.Body>
             <Modal.Footer>
                 <button onClick={props.onHide}>Close</button>

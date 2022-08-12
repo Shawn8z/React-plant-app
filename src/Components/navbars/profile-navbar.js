@@ -25,7 +25,7 @@ function CustomToggle({ children, eventKey }) {
 }
 
 
-function ProfileNavbar() {
+function ProfileNavbar(props) {
 
 
     
@@ -36,7 +36,7 @@ function ProfileNavbar() {
 
                 <h3 className="my-0 mr-md-auto font-weight-normal">Grow App</h3>
                 <nav className="my-2 my-sm-0 mr-md-3 ">
-                    <Button variant="light" ClassName="col-md-6" >
+                    <Button variant="light" onClick={props.handleshowAddPlant}>
                         Add Plant
                     </Button>
                     <span>  |  </span>

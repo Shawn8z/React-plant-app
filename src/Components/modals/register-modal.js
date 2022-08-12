@@ -1,8 +1,8 @@
 import { logDOM } from '@testing-library/react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Login from '../login&register/login';
 import Register from '../login&register/register';
+import Login from '../login&register/login';
 
 function RegisterModal(props) {
     
@@ -25,7 +25,6 @@ function RegisterModal(props) {
                 dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
                 consectetur ac, vestibulum at eros.
                 </p>
-                {/* <Login /> */}
                 <Register />
             </Modal.Body>
             <Modal.Footer>

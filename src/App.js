@@ -14,6 +14,7 @@ import ProfileBody from './Components/bodys/profile-body';
 
 import LoginModal from './Components/modals/login-modal';
 import RegisterModal from './Components/modals/register-modal';
+import AddPlantModal from './Components/modals/addPlant-modal';
 
 import TooltipContent from './Components/tooltipContent';
 
@@ -23,6 +24,7 @@ function App(props) {
 
 const [showLogin, setShowLogin] = useState(false);
 const [showRegister, setShowRegister] = useState(false);
+const [showAddPlant, setShowAddPlant] = useState(false);
 
 
 const handleCloseLogin = () => setShowLogin(false);
@@ -31,19 +33,25 @@ const handleShowLogin = () => setShowLogin(true);
 const handleCloseRegister = () => setShowRegister(false);
 const handleShowRegister = () => setShowRegister(true);
 
+const handleCloseAddPlant = () => setShowAddPlant(false);
+const handleshowAddPlant = () => setShowAddPlant(true);
 
 
 
   return (
     <div className="App">
 
-
+      {/* =====navbars===== */}
       {/* <MainNavbar 
         handleShowRegister={handleShowRegister}
         handleShowLogin={handleShowLogin}
       /> */}
-      <ProfileNavbar />
+      <ProfileNavbar
+        handleshowAddPlant={handleshowAddPlant}
+      />
 
+
+      {/* =====modals===== */}
       <LoginModal
         show={showLogin}
         onHide={() => handleCloseLogin(false)}
@@ -52,8 +60,14 @@ const handleShowRegister = () => setShowRegister(true);
         show={showRegister}
         onHide={() => handleCloseRegister(false)}
       />
+      <AddPlantModal 
+        show={showAddPlant}
+        onHide={() => handleCloseAddPlant(false)}
+      />
 
 
+
+      {/* =====bodys===== */}
       {/* <MainBody /> */}
       <ProfileBody />
     
