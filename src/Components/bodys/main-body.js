@@ -17,12 +17,12 @@ function MainBody() {
         </div>
 
         <div className="container col-md-8 mt-5 text-center">
+            
             <h2 className="display-4">Gardens</h2>
-
 
             <div className="row mt-4 mx-auto">
 
-                <div className="col-sm-4">
+                <div className="col-md-4">
                     <div className="card">
                         <img src={require("../../img/placeholder-image.jpg")} className="card-img-top" alt="..." />
                         <div className="card-body">
@@ -32,7 +32,7 @@ function MainBody() {
                     </div>
                 </div>
 
-                <div className="col-sm-4">
+                <div className="col-md-4">
                     <div className="card">
                         <img src={require("../../img/placeholder-image.jpg")} className="card-img-top" alt="..." />
                         <div className="card-body">
@@ -42,7 +42,7 @@ function MainBody() {
                     </div>
                 </div>
 
-                <div className="col-sm-4">
+                <div className="col-md-4">
                     <div className="card">
                         <img src={require("../../img/placeholder-image.jpg")} className="card-img-top" alt="..." />
                         <div className="card-body">
