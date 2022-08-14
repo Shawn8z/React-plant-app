@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 
-// import Modal from "./Components/modal";
+
 import MainNavbar from './Components/navbars/main-navbar';
 import ProfileNavbar from './Components/navbars/profile-navbar';
 
