@@ -10,6 +10,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 
 function CustomToggle({ children, eventKey }) {
+    
     const decoratedOnClick = useAccordionButton(eventKey, () => 
         console.log("totally custom!"),
     );
@@ -73,6 +74,7 @@ function ProfileNavbar(props) {
                                         "Hardiness",
                                         "Water"
                                     ].map( (item) => (
+                                        // default search filter is name, its checked by default
                                         item === "Name" ? 
                                         <div key={`${item} checkbox`}>
                                             <Form.Check
@@ -81,6 +83,7 @@ function ProfileNavbar(props) {
                                                 type="checkbox"
                                                 name={item}
                                                 checked
+                                                value = {item.toLowerCase()}
                                             />
                                         </div> 
                                         :
@@ -90,6 +93,7 @@ function ProfileNavbar(props) {
                                                 label={item}
                                                 type="checkbox"
                                                 name={item}
+                                                value = {item.toLowerCase()}
                                             />
                                         </div>
                                         ))}
@@ -108,6 +112,7 @@ function ProfileNavbar(props) {
                                                 label={item}
                                                 type="checkbox"
                                                 name={item}
+                                                value = {item.toLowerCase()}
                                             />
                                         </div>
                                     ))}

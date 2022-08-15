@@ -1,4 +1,6 @@
-import { Table } from "react-bootstrap";
+import { Table, Container, Row, Column} from "react-bootstrap";
+import { Plants } from "../../plants";
+
 
 function MyTable() {
     const columns = ["Name", "Family", "Hardiness", "Water", "Mature Size", "Soil Type", "Sun Exposure"];
@@ -10,24 +12,28 @@ function MyTable() {
         ["plant4", "zzza", "4-6", "twice a week", "1-3inchs tall", "hard soil", "indirect sun"],
     ]
     return (
-        <table>
-            <thead>
-                <tr>
-                    {columns.map((column) => (
-                        <th className="px-3">{column}</th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {items.map((item) => (
-                    <tr>
-                        {item.map((val) => (
-                            <td>{val}</td>
+        <Container>
+            <Row>
+                <table>
+                    <thead>
+                        <tr>
+                            {columns.map((column) => (
+                                <th className="px-3">{column}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {items.map((item) => (
+                            <tr>
+                                {item.map((val) => (
+                                    <td>{val}</td>
+                                ))}
+                            </tr>
                         ))}
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </Row>
+        </Container>
     )
 }
 
