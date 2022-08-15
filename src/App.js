@@ -16,7 +16,7 @@ import LoginModal from './Components/modals/login-modal';
 import RegisterModal from './Components/modals/register-modal';
 import AddPlantModal from './Components/modals/addPlant-modal';
 
-import TooltipContent from './Components/tooltipContent';
+
 
 
 function App(props) {

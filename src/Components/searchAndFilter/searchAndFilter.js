@@ -4,10 +4,14 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 
+import { useState,  } from "react";
+import { Plants } from "../../plants";
+
+// toggle function for UI
 function CustomToggle({ children, eventKey }) {
     
     const decoratedOnClick = useAccordionButton(eventKey, () => 
-        console.log("totally custom!"),
+        console.log()
     );
 
     return (
@@ -23,16 +27,57 @@ function CustomToggle({ children, eventKey }) {
 
 function SearchAndFilter() {
 
+    const allKeys = Object.keys(Plants[0]);
+
+    const [query, setQuery] = useState("");
+    const [checkedState, setCheckedState] = useState(
+        allKeys.map(item => item = false)
+    );
+    const [queryKeys, setQueryKeys] = useState([]);
+
+
+    const handleQueryChange = (event) => {
+        setQuery(event.target.value);
+    }
+
+    const handleCheckBoxChange = (event) => {
+        const target = event.target;
+        const value = target.checked;
+        const index = target.value;
+
+        let tempStateArr = checkedState;
+        tempStateArr[index] =value;
+        setCheckedState(tempStateArr);
+
+        let tempKeyArr = [];
+        checkedState.forEach((bool, index) => {
+            if (bool) {
+                tempKeyArr.push(allKeys[index])
+            }
+        })
+        setQueryKeys(tempKeyArr);
+        // console.log(tempKeyArr);
+    }
+
+    const handleSubmit = (event) => {
+        alert("a query string was submitted: " + query);
+        console.log(queryKeys);
+        event.preventDefault();
+    }
+
+
+
     return (
         <div className="search-bar d-flex flex-row p-3 mb-4 px-md-4 bg-white border-bottom shadow-sm">
 
                 <Accordion defaultActiveKey="0" className="col-md-6 mx-auto">
-                    <Form className="align-items-center">
+                    <Form className="align-items-center" onSubmit={handleSubmit}>
                         <div className="search-bar d-flex flex-row mx-auto">
                             <Form.Control 
                                 type="search" 
                                 placeholder="Search..."
-                                className="me-2" 
+                                className="me-2"
+                                onChange={handleQueryChange}
                             />
                             
                             <ButtonGroup className="col-4">
@@ -48,27 +93,16 @@ function SearchAndFilter() {
                                     "Family", 
                                     "Hardiness",
                                     "Water"
-                                ].map( (item) => (
-                                    // default search filter is name, its checked by default
-                                    item === "Name" ? 
+                                ].map( (item, index) => (
                                     <div key={`${item} checkbox`}>
                                         <Form.Check
+                                            key={index + 1}
                                             inline
                                             label={item}
                                             type="checkbox"
                                             name={item}
-                                            checked
-                                            value = {item.toLowerCase()}
-                                        />
-                                    </div> 
-                                    :
-                                    <div key={`${item} checkbox`}>
-                                        <Form.Check
-                                            inline
-                                            label={item}
-                                            type="checkbox"
-                                            name={item}
-                                            value = {item.toLowerCase()}
+                                            value = {index + 1}
+                                            onChange = {handleCheckBoxChange}
                                         />
                                     </div>
                                     ))}
@@ -80,14 +114,16 @@ function SearchAndFilter() {
                                     "Mature Size", 
                                     "Soil Type", 
                                     "Sun Exposure",
-                                ].map( (item) => (
+                                ].map( (item, index) => (
                                     <div key={`${item} checkbox`}>
                                         <Form.Check
+                                            // key={index + 5}
                                             inline
                                             label={item}
                                             type="checkbox"
                                             name={item}
-                                            value = {item.toLowerCase()}
+                                            value = {index + 5}
+                                            onChange = {handleCheckBoxChange}
                                         />
                                     </div>
                                 ))}
