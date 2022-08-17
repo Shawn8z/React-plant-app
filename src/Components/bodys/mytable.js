@@ -3,14 +3,13 @@ import { Plants } from "../../plants";
 
 
 function MyTable() {
+    
     const columns = ["Name", "Family", "Hardiness", "Water", "Mature Size", "Soil Type", "Sun Exposure"];
 
-    const items = [
-        ["plant1", "abcs", "9-10", "till the soil drys", "6-9inchs tall", "well-drain", "full sun"],
-        ["plant2", "bba4", "2-4", "1 inch per week", "1-3inchs tall", "sandy", "indrect sun"],
-        ["plant3", "dddc", "3-6", "mist 3 times per week", "7inchs tall", "grainy", "indoors"],
-        ["plant4", "zzza", "4-6", "twice a week", "1-3inchs tall", "hard soil", "indirect sun"],
-    ]
+   
+    const dataObjs = [...Plants];
+
+
     return (
         <Container>
             <Row>
@@ -23,13 +22,21 @@ function MyTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {items.map((item) => (
-                            <tr>
-                                {item.map((val) => (
-                                    <td>{val}</td>
-                                ))}
-                            </tr>
-                        ))}
+                        {dataObjs.map( (obj) =>
+                            (
+                                <tr>
+                                    {Object.values(obj)
+                                            .filter((item, index) => index != 0)
+                                                .map((item) => 
+                                                    <td>{item}</td>
+                                                )
+                                    }
+                                    
+                                </tr>
+                            )
+                            
+                            )
+                        }
                     </tbody>
                 </table>
             </Row>

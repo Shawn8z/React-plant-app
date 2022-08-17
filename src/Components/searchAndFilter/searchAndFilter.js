@@ -33,7 +33,8 @@ function SearchAndFilter() {
     const [checkedState, setCheckedState] = useState(
         allKeys.map(item => item = false)
     );
-    const [queryKeys, setQueryKeys] = useState([]);
+    const [queryKeys, setQueryKeys] = useState("empty");
+    const [filteredObjs, setFilteredObjs] = useState([]);
 
 
     const handleQueryChange = (event) => {
@@ -56,22 +57,34 @@ function SearchAndFilter() {
             }
         })
         setQueryKeys(tempKeyArr);
-        // console.log(tempKeyArr);
+    }
+
+    const search = (dataObj) => {
+        return dataObj.filter((item) => 
+            queryKeys.some((key) => item[key].toLowerCase().includes(query)
+        ))
     }
 
     const handleSubmit = (event) => {
-        alert("a query string was submitted: " + query);
-        console.log(queryKeys);
-        event.preventDefault();
+        let isFiltered = checkedState.some((item) => item === true);
+
+        if (isFiltered) {
+            console.log("filtered")
+            let filterList = search(Plants);
+            setFilteredObjs(filterList);
+            event.preventDefault();
+        } else {
+            console.log("not filtered");
+            event.preventDefault();
+        }
     }
-
-
 
     return (
         <div className="search-bar d-flex flex-row p-3 mb-4 px-md-4 bg-white border-bottom shadow-sm">
 
                 <Accordion defaultActiveKey="0" className="col-md-6 mx-auto">
                     <Form className="align-items-center" onSubmit={handleSubmit}>
+
                         <div className="search-bar d-flex flex-row mx-auto">
                             <Form.Control 
                                 type="search" 
@@ -96,7 +109,6 @@ function SearchAndFilter() {
                                 ].map( (item, index) => (
                                     <div key={`${item} checkbox`}>
                                         <Form.Check
-                                            key={index + 1}
                                             inline
                                             label={item}
                                             type="checkbox"
@@ -117,7 +129,6 @@ function SearchAndFilter() {
                                 ].map( (item, index) => (
                                     <div key={`${item} checkbox`}>
                                         <Form.Check
-                                            // key={index + 5}
                                             inline
                                             label={item}
                                             type="checkbox"
