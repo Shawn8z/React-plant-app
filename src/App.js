@@ -25,6 +25,7 @@ function App(props) {
 const [showLogin, setShowLogin] = useState(false);
 const [showRegister, setShowRegister] = useState(false);
 const [showAddPlant, setShowAddPlant] = useState(false);
+const [filteredList, setFilteredList] = useState("");
 
 
 const handleCloseLogin = () => setShowLogin(false);
@@ -36,6 +37,7 @@ const handleShowRegister = () => setShowRegister(true);
 const handleCloseAddPlant = () => setShowAddPlant(false);
 const handleshowAddPlant = () => setShowAddPlant(true);
 
+const getListFromSearch = (value) => setFilteredList(value);
 
 
   return (
@@ -46,8 +48,11 @@ const handleshowAddPlant = () => setShowAddPlant(true);
         handleShowRegister={handleShowRegister}
         handleShowLogin={handleShowLogin}
       /> */}
+
+
       <ProfileNavbar
-        handleshowAddPlant={handleshowAddPlant}
+        handleshowAddPlant={() => handleshowAddPlant()}
+        passListToApp={getListFromSearch}
       />
 
 
@@ -70,6 +75,7 @@ const handleshowAddPlant = () => setShowAddPlant(true);
       {/* =====bodys===== */}
       {/* <MainBody /> */}
       <ProfileBody />
+      <div>{filteredList}</div>
     
       
 

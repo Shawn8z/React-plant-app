@@ -1,15 +1,15 @@
 
 
 import SearchAndFilter from "../searchAndFilter/searchAndFilter";
-
+import { useState } from "react";
 
 import Button from 'react-bootstrap/Button';
 
 
 function ProfileNavbar(props) {
+    const [dataFromSearch, setDataFromSearch] = useState("");
 
-
-    
+    const takeDataFromSearch = (value) => setDataFromSearch(value); 
 
     return (
         <div>
@@ -28,7 +28,8 @@ function ProfileNavbar(props) {
                 
             </div>
             
-            <SearchAndFilter />
+            <SearchAndFilter passDataToNav={takeDataFromSearch}/>
+            <div>{dataFromSearch}</div>
             
         </div>
 

@@ -7,9 +7,10 @@ import Stack from 'react-bootstrap/Stack';
 
 import Table from 'react-bootstrap/Table';
 
-import React, { useMemo } from "react";
+import React, { useState } from "react";
 // import { BasicTable } from '../tables/BasicTable';
-import FullListTable from '../tables/fullListTable';
+import FullTable from '../tables/fullTable';
+import FilteredTable from '../tables/filteredTable';
 
 function ProfileBody() {
 
@@ -33,7 +34,9 @@ function ProfileBody() {
                         </tbody>
                     </Table> */}
 
-                    <FullListTable />
+                    {/* <FullTable /> */}
+
+                    <FilteredTable />
                 </Col>
             </Row>
         </container>

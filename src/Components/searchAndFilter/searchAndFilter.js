@@ -7,6 +7,7 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import { useState,  } from "react";
 import { Plants } from "../../plants";
 
+
 // toggle function for UI
 // >>>need research<<<
 function CustomToggle({ children, eventKey }) {
@@ -25,7 +26,11 @@ function CustomToggle({ children, eventKey }) {
     )
 }
 
-function SearchAndFilter() {
+function SearchAndFilter({ passDataToNav }) {
+
+    const testList = <h1>This is testList from search</h1>;
+    
+
     // put all the column names into an array
     const allKeys = Object.keys(Plants[0]).slice(1);
     const columnNames = allKeys.map((item) => item[0].toUpperCase() + item.slice(1));
@@ -41,7 +46,7 @@ function SearchAndFilter() {
     const [queryKeys, setQueryKeys] = useState("empty");
 
     //filteredObj holds the searched results base on the filters
-    const [filteredObjs, setFilteredObjs] = useState([]);
+    const [filteredObjs, setFilteredObjs] = useState("");
 
 
     const handleQueryChange = (event) => {
@@ -67,6 +72,7 @@ function SearchAndFilter() {
             }
         })
         setQueryKeys(tempKeyArr);
+
     }
 
     const search = (dataObj) => {
@@ -76,36 +82,34 @@ function SearchAndFilter() {
     }
 
     const searchAll = (dataObj) => {
-        return dataObj.filter((itemObj) => 
-            allKeys.slice(1).some((key) => itemObj[key].toLowerCase().includes(query)
+        return dataObj.filter((itemObj) => (
+            allKeys.some((key) => itemObj[key].toLowerCase().includes(query)
+            )
         ))
     }
 
+     // >>>> note to self, your search only work on string values <<<<
     const handleSubmit = (event) => {
         let isFiltered = checkedState.some((item) => item === true);
-
+        console.log("submit fired");
         if (isFiltered) {
-            console.log("filtered")
             let filterList = search(Plants);
             setFilteredObjs(filterList);
             event.preventDefault();
         } else {
-            console.log("not filtered");
             let resultList = searchAll(Plants);
             setFilteredObjs(resultList);
             event.preventDefault();
         }
     }
 
-    
-
+    const searchTestData = "search test data";
 
     return (
         <div className="search-bar d-flex flex-row p-3 mb-4 px-md-4 bg-white border-bottom shadow-sm">
 
                 <Accordion defaultActiveKey="0" className="col-md-6 mx-auto">
                     <Form className="align-items-center" onSubmit={handleSubmit}>
-
                         <div className="search-bar d-flex flex-row mx-auto">
                             <Form.Control 
                                 type="search" 
@@ -115,7 +119,7 @@ function SearchAndFilter() {
                             />
                             
                             <ButtonGroup className="col-4">
-                                <Button variant="light" type="submit">Search</Button>
+                                <Button variant="light" type="submit" onClick={() => passDataToNav(searchTestData)}>Search</Button>
                                 <CustomToggle eventKey="1">Filter</CustomToggle>
                                 <Button variant="light" type="button">Clear</Button>
                             </ButtonGroup>
