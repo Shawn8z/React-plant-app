@@ -8,8 +8,8 @@ import Stack from 'react-bootstrap/Stack';
 import Table from 'react-bootstrap/Table';
 
 import React, { useMemo } from "react";
-import { BasicTable } from './BasicTable';
-import MyTable from './mytable';
+// import { BasicTable } from '../tables/BasicTable';
+import FullListTable from '../tables/fullListTable';
 
 function ProfileBody() {
 
@@ -33,7 +33,7 @@ function ProfileBody() {
                         </tbody>
                     </Table> */}
 
-                    <MyTable />
+                    <FullListTable />
                 </Col>
             </Row>
         </container>

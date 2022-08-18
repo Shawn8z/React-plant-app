@@ -2,7 +2,7 @@ import { Table, Container, Row, Column} from "react-bootstrap";
 import { Plants } from "../../plants";
 
 
-function MyTable() {
+function FullListTable() {
     
     const allKeys = Object.keys(Plants[0]).slice(1);
     const columns = allKeys.map((item) => item[0].toUpperCase() + item.slice(1));
@@ -43,4 +43,4 @@ function MyTable() {
 }
 
 
-export default MyTable;
+export default FullListTable;
