@@ -2,13 +2,13 @@ import { Table, Container, Row, Column} from "react-bootstrap";
 import { Plants } from "../../plants";
 
 
-function FilteredTable() {
+function FilteredTable(props) {
     
     const allKeys = Object.keys(Plants[0]).slice(1);
     const columns = allKeys.map((item) => item[0].toUpperCase() + item.slice(1));
 
     const dataObjs = [...Plants];
-
+    const filterdList = [...props.list]
 
     return (
         <Container>
@@ -22,7 +22,7 @@ function FilteredTable() {
                         </tr>
                     </thead>
                     <tbody>
-                        {dataObjs.map( (obj) =>
+                        {filterdList.map( (obj) =>
                             (
                                 <tr>
                                     {Object.values(obj)

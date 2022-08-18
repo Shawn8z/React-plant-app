@@ -46,11 +46,10 @@ function SearchAndFilter({ passDataToNav }) {
     const [queryKeys, setQueryKeys] = useState("empty");
 
     //filteredObj holds the searched results base on the filters
-    const [filteredObjs, setFilteredObjs] = useState("");
-
+    const [filteredObjs, setFilteredObjs] = useState({});
 
     const handleQueryChange = (event) => {
-        setQuery(event.target.value);
+        setQuery(event.target.value.toLowerCase());
     }
 
 
@@ -88,22 +87,25 @@ function SearchAndFilter({ passDataToNav }) {
         ))
     }
 
+    const passData = passDataToNav.bind(this);
+
      // >>>> note to self, your search only work on string values <<<<
     const handleSubmit = (event) => {
         let isFiltered = checkedState.some((item) => item === true);
-        console.log("submit fired");
+
         if (isFiltered) {
-            let filterList = search(Plants);
-            setFilteredObjs(filterList);
-            event.preventDefault();
+            passData(search(Plants))
         } else {
-            let resultList = searchAll(Plants);
-            setFilteredObjs(resultList);
-            event.preventDefault();
+            passData(searchAll(Plants));
         }
+
+        event.preventDefault();
     }
 
-    const searchTestData = "search test data";
+    const clearSearchResult = () => { 
+        passData('');
+    }
+
 
     return (
         <div className="search-bar d-flex flex-row p-3 mb-4 px-md-4 bg-white border-bottom shadow-sm">
@@ -119,9 +121,9 @@ function SearchAndFilter({ passDataToNav }) {
                             />
                             
                             <ButtonGroup className="col-4">
-                                <Button variant="light" type="submit" onClick={() => passDataToNav(searchTestData)}>Search</Button>
+                                <Button variant="light" type="submit" >Search</Button>
                                 <CustomToggle eventKey="1">Filter</CustomToggle>
-                                <Button variant="light" type="button">Clear</Button>
+                                <Button variant="light" type="button" onClick={clearSearchResult}>Clear</Button>
                             </ButtonGroup>
                         </div>
 
@@ -150,7 +152,7 @@ function SearchAndFilter({ passDataToNav }) {
                                             label={item}
                                             type="checkbox"
                                             name={item}
-                                            value = {index}
+                                            value = {index + 4}
                                             onChange = {handleCheckBoxChange}
                                         />
                                     </div>

@@ -12,7 +12,7 @@ import React, { useState } from "react";
 import FullTable from '../tables/fullTable';
 import FilteredTable from '../tables/filteredTable';
 
-function ProfileBody() {
+function ProfileBody(props) {
 
     
 
@@ -34,9 +34,9 @@ function ProfileBody() {
                         </tbody>
                     </Table> */}
 
-                    {/* <FullTable /> */}
+                    <FullTable />
 
-                    <FilteredTable />
+                    <FilteredTable list = {props.incomingList}/>
                 </Col>
             </Row>
         </container>

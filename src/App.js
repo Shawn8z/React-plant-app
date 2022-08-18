@@ -11,10 +11,13 @@ import ProfileNavbar from './Components/navbars/profile-navbar';
 
 import MainBody from './Components/bodys/main-body';
 import ProfileBody from './Components/bodys/profile-body';
+import FilteredTable from './Components/tables/filteredTable';
+
 
 import LoginModal from './Components/modals/login-modal';
 import RegisterModal from './Components/modals/register-modal';
 import AddPlantModal from './Components/modals/addPlant-modal';
+
 
 
 
@@ -74,9 +77,9 @@ const getListFromSearch = (value) => setFilteredList(value);
 
       {/* =====bodys===== */}
       {/* <MainBody /> */}
-      <ProfileBody />
-      <div>{filteredList}</div>
-    
+      <ProfileBody incomingList={filteredList}/>
+  
+      
       
 
     </div>
