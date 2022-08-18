@@ -45,13 +45,9 @@ function SearchAndFilter({ passDataToNav }) {
     //queryKeys is an array of column names that are put together based on the checkbox input
     const [queryKeys, setQueryKeys] = useState("empty");
 
-    //filteredObj holds the searched results base on the filters
-    const [filteredObjs, setFilteredObjs] = useState({});
-
     const handleQueryChange = (event) => {
         setQuery(event.target.value.toLowerCase());
     }
-
 
     const handleCheckBoxChange = (event) => {
         const target = event.target;
@@ -74,15 +70,44 @@ function SearchAndFilter({ passDataToNav }) {
 
     }
 
+    
+    const rawQueryChecker = () => {
+        let queryArr = [];
+
+        if (query.includes(", ")) {
+            queryArr = query.split(", ");
+            return queryArr;
+        } else {
+            queryArr.push(query);
+            return queryArr;
+        }
+    }
+
+    // these search work with query as a whole string
     const search = (dataObj) => {
         return dataObj.filter((itemObj) => 
             queryKeys.some((key) => itemObj[key].toLowerCase().includes(query)
         ))
     }
-
     const searchAll = (dataObj) => {
         return dataObj.filter((itemObj) => (
             allKeys.some((key) => itemObj[key].toLowerCase().includes(query)
+            )
+        ))
+    }
+
+    // these search support query seperated with ", "
+    const searchWithArrQuery = (dataObj, queryList) => {
+        return dataObj.filter((item) => 
+            queryKeys.some((key) => 
+                queryList.some((queryItem) => item[key].toLowerCase().includes(queryItem))
+            )
+        )
+    }
+    const searchAllWithArrQuery = (dataObj, queryList) => {
+        return dataObj.filter((itemObj) => (
+            allKeys.some((key) => 
+                queryList.some((quertItem) => itemObj[key].toLowerCase().includes(quertItem))
             )
         ))
     }
@@ -91,16 +116,19 @@ function SearchAndFilter({ passDataToNav }) {
 
      // >>>> note to self, your search only work on string values <<<<
     const handleSubmit = (event) => {
+        let val = rawQueryChecker();
         let isFiltered = checkedState.some((item) => item === true);
 
+
         if (isFiltered) {
-            passDataOut(search(Plants))
+            passDataOut(searchWithArrQuery(Plants, val));
         } else {
-            passDataOut(searchAll(Plants));
+            passDataOut(searchAllWithArrQuery(Plants, val));
         }
 
         event.preventDefault();
     }
+
 
     const clearSearchResult = () => { 
         passDataOut('');
@@ -121,7 +149,7 @@ function SearchAndFilter({ passDataToNav }) {
                             />
                             
                             <ButtonGroup className="col-4">
-                                <Button variant="light" type="submit" >Search</Button>
+                                <Button variant="light" type="submit">Search</Button>
                                 <CustomToggle eventKey="1">Filter</CustomToggle>
                                 <Button variant="light" type="button" onClick={clearSearchResult}>Clear</Button>
                             </ButtonGroup>
