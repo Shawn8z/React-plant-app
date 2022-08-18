@@ -7,11 +7,11 @@ function FilteredTable(props) {
     const allKeys = Object.keys(Plants[0]).slice(1);
     const columns = allKeys.map((item) => item[0].toUpperCase() + item.slice(1));
 
-    const dataObjs = [...Plants];
+    // const dataObjs = [...Plants];
     const filterdList = [...props.list]
 
     return (
-        <Container>
+        <Container className="mt-5">
             <Row>
                 <table>
                     <thead>
@@ -24,7 +24,7 @@ function FilteredTable(props) {
                     <tbody>
                         {filterdList.map( (obj) =>
                             (
-                                <tr>
+                                <tr >
                                     {Object.values(obj)
                                             .filter((item, index) => index != 0)
                                                 .map((item) => 

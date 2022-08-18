@@ -87,23 +87,23 @@ function SearchAndFilter({ passDataToNav }) {
         ))
     }
 
-    const passData = passDataToNav.bind(this);
+    const passDataOut = passDataToNav.bind(this);
 
      // >>>> note to self, your search only work on string values <<<<
     const handleSubmit = (event) => {
         let isFiltered = checkedState.some((item) => item === true);
 
         if (isFiltered) {
-            passData(search(Plants))
+            passDataOut(search(Plants))
         } else {
-            passData(searchAll(Plants));
+            passDataOut(searchAll(Plants));
         }
 
         event.preventDefault();
     }
 
     const clearSearchResult = () => { 
-        passData('');
+        passDataOut('');
     }
 
 
