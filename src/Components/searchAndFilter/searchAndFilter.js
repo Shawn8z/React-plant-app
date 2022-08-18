@@ -8,10 +8,11 @@ import { useState,  } from "react";
 import { Plants } from "../../plants";
 
 // toggle function for UI
+// >>>need research<<<
 function CustomToggle({ children, eventKey }) {
     
     const decoratedOnClick = useAccordionButton(eventKey, () => 
-        console.log()
+        eventKey
     );
 
     return (
@@ -24,7 +25,6 @@ function CustomToggle({ children, eventKey }) {
     )
 }
 
-
 function SearchAndFilter() {
     // put all the column names into an array
     const allKeys = Object.keys(Plants[0]).slice(1);
@@ -34,7 +34,7 @@ function SearchAndFilter() {
     const [query, setQuery] = useState("");
 
     const [checkedState, setCheckedState] = useState(
-        // create an array with the same lenth as number of columns on the individual plant object, but filled with boolean value
+        // create an array with the same lenth as number of columns on the individual plant object, but filled with boolean false
         allKeys.map(item => item = false)
     );
     //queryKeys is an array of column names that are put together based on the checkbox input
@@ -54,7 +54,7 @@ function SearchAndFilter() {
         const value = target.checked;
         const index = target.value;
 
-        // change the value with the according index on the checkedState array,  with the updated checkbox state
+        // change the boolean with the according index on the checkedState array,  with the updated checkbox state
         let tempStateArr = checkedState;
         tempStateArr[index] = value;
         setCheckedState(tempStateArr);
@@ -117,6 +117,7 @@ function SearchAndFilter() {
                             <ButtonGroup className="col-4">
                                 <Button variant="light" type="submit">Search</Button>
                                 <CustomToggle eventKey="1">Filter</CustomToggle>
+                                <Button variant="light" type="button">Clear</Button>
                             </ButtonGroup>
                         </div>
 
@@ -129,7 +130,7 @@ function SearchAndFilter() {
                                             label={item}
                                             type="checkbox"
                                             name={item}
-                                            value = {index + 1}
+                                            value = {index}
                                             onChange = {handleCheckBoxChange}
                                         />
                                     </div>
@@ -145,7 +146,7 @@ function SearchAndFilter() {
                                             label={item}
                                             type="checkbox"
                                             name={item}
-                                            value = {index + 5}
+                                            value = {index}
                                             onChange = {handleCheckBoxChange}
                                         />
                                     </div>
