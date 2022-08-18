@@ -36,6 +36,6 @@ export const Plants = [
         "hardiness":9,
         "water":"1 inch of water per week",
         "mature_size":10,
-        "soil_type":"̦Loamy, well-drained",
+        "soil_type":"Loamy, well-drained",
         "sun_exposure":"Full sun"
     }]

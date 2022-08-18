@@ -26,14 +26,21 @@ function CustomToggle({ children, eventKey }) {
 
 
 function SearchAndFilter() {
+    // put all the column names into an array
+    const allKeys = Object.keys(Plants[0]).slice(1);
+    const columnNames = allKeys.map((item) => item[0].toUpperCase() + item.slice(1));
 
-    const allKeys = Object.keys(Plants[0]);
-
+    // query holds the input value of the search input box
     const [query, setQuery] = useState("");
+
     const [checkedState, setCheckedState] = useState(
+        // create an array with the same lenth as number of columns on the individual plant object, but filled with boolean value
         allKeys.map(item => item = false)
     );
+    //queryKeys is an array of column names that are put together based on the checkbox input
     const [queryKeys, setQueryKeys] = useState("empty");
+
+    //filteredObj holds the searched results base on the filters
     const [filteredObjs, setFilteredObjs] = useState([]);
 
 
@@ -41,15 +48,18 @@ function SearchAndFilter() {
         setQuery(event.target.value);
     }
 
+
     const handleCheckBoxChange = (event) => {
         const target = event.target;
         const value = target.checked;
         const index = target.value;
 
+        // change the value with the according index on the checkedState array,  with the updated checkbox state
         let tempStateArr = checkedState;
-        tempStateArr[index] =value;
+        tempStateArr[index] = value;
         setCheckedState(tempStateArr);
 
+        // on checking a checkbox, recreate a new keys array and update querykeys
         let tempKeyArr = [];
         checkedState.forEach((bool, index) => {
             if (bool) {
@@ -60,8 +70,14 @@ function SearchAndFilter() {
     }
 
     const search = (dataObj) => {
-        return dataObj.filter((item) => 
-            queryKeys.some((key) => item[key].toLowerCase().includes(query)
+        return dataObj.filter((itemObj) => 
+            queryKeys.some((key) => itemObj[key].toLowerCase().includes(query)
+        ))
+    }
+
+    const searchAll = (dataObj) => {
+        return dataObj.filter((itemObj) => 
+            allKeys.slice(1).some((key) => itemObj[key].toLowerCase().includes(query)
         ))
     }
 
@@ -75,9 +91,14 @@ function SearchAndFilter() {
             event.preventDefault();
         } else {
             console.log("not filtered");
+            let resultList = searchAll(Plants);
+            setFilteredObjs(resultList);
             event.preventDefault();
         }
     }
+
+    
+
 
     return (
         <div className="search-bar d-flex flex-row p-3 mb-4 px-md-4 bg-white border-bottom shadow-sm">
@@ -101,12 +122,7 @@ function SearchAndFilter() {
 
                         <Accordion.Collapse eventKey="1">
                             <div className="d-flex flex-row justify-content-center mx-auto mt-3">
-                                {[  
-                                    "Name", 
-                                    "Family", 
-                                    "Hardiness",
-                                    "Water"
-                                ].map( (item, index) => (
+                                {columnNames.slice(0, 4).map((item, index) => (
                                     <div key={`${item} checkbox`}>
                                         <Form.Check
                                             inline
@@ -122,11 +138,7 @@ function SearchAndFilter() {
                         </Accordion.Collapse>
                         <Accordion.Collapse eventKey="1">
                             <div className="d-flex flex-row justify-content-center mx-auto mt-3">
-                                {[
-                                    "Mature Size", 
-                                    "Soil Type", 
-                                    "Sun Exposure",
-                                ].map( (item, index) => (
+                                {columnNames.slice(4).map( (item, index) => (
                                     <div key={`${item} checkbox`}>
                                         <Form.Check
                                             inline

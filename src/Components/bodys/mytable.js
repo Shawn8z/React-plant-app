@@ -4,9 +4,9 @@ import { Plants } from "../../plants";
 
 function MyTable() {
     
-    const columns = ["Name", "Family", "Hardiness", "Water", "Mature Size", "Soil Type", "Sun Exposure"];
+    const allKeys = Object.keys(Plants[0]).slice(1);
+    const columns = allKeys.map((item) => item[0].toUpperCase() + item.slice(1));
 
-   
     const dataObjs = [...Plants];
 
 
@@ -34,9 +34,7 @@ function MyTable() {
                                     
                                 </tr>
                             )
-                            
-                            )
-                        }
+                        )}
                     </tbody>
                 </table>
             </Row>
