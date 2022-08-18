@@ -13,7 +13,7 @@ function FullTable() {
     return (
         <Container>
             <Row>
-                <table>
+                <Table striped bordered hover>
                     <thead>
                         <tr>
                             {columns.map((column) => (
@@ -36,7 +36,7 @@ function FullTable() {
                             )
                         )}
                     </tbody>
-                </table>
+                </Table>
             </Row>
         </Container>
     )

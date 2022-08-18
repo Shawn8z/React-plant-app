@@ -13,7 +13,7 @@ function FilteredTable(props) {
     return (
         <Container className="mt-5">
             <Row>
-                <table>
+                <Table striped bordered hover>
                     <thead>
                         <tr>
                             {columns.map((column) => (
@@ -36,7 +36,7 @@ function FilteredTable(props) {
                             )
                         )}
                     </tbody>
-                </table>
+                </Table>
             </Row>
         </Container>
     )

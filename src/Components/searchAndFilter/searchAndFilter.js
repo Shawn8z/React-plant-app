@@ -119,7 +119,6 @@ function SearchAndFilter({ passDataToNav }) {
         let val = rawQueryChecker();
         let isFiltered = checkedState.some((item) => item === true);
 
-
         if (isFiltered) {
             passDataOut(searchWithArrQuery(Plants, val));
         } else {
@@ -129,9 +128,9 @@ function SearchAndFilter({ passDataToNav }) {
         event.preventDefault();
     }
 
-
     const clearSearchResult = () => { 
         passDataOut('');
+        setQuery('');
     }
 
 
@@ -151,7 +150,7 @@ function SearchAndFilter({ passDataToNav }) {
                             <ButtonGroup className="col-4">
                                 <Button variant="light" type="submit">Search</Button>
                                 <CustomToggle eventKey="1">Filter</CustomToggle>
-                                <Button variant="light" type="button" onClick={clearSearchResult}>Clear</Button>
+                                <Button variant="light" type="reset" onClick={clearSearchResult}>Clear</Button>
                             </ButtonGroup>
                         </div>
 
