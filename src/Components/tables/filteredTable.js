@@ -7,7 +7,6 @@ function FilteredTable(props) {
     const allKeys = Object.keys(Plants[0]).slice(1);
     const columns = allKeys.map((item) => item[0].toUpperCase() + item.slice(1));
 
-    // const dataObjs = [...Plants];
     const filterdList = [...props.list]
 
     return (
@@ -17,18 +16,18 @@ function FilteredTable(props) {
                     <thead>
                         <tr>
                             {columns.map((column) => (
-                                <th className="px-3">{column}</th>
+                                <th className="px-3" key={column}>{column}</th>
                             ))}
                         </tr>
                     </thead>
                     <tbody>
                         {filterdList.map( (obj) =>
                             (
-                                <tr >
+                                <tr key={obj.name}>
                                     {Object.values(obj)
                                             .filter((item, index) => index != 0)
                                                 .map((item) => 
-                                                    <td>{item}</td>
+                                                    <td key={item}>{item}</td>
                                                 )
                                     }
                                     

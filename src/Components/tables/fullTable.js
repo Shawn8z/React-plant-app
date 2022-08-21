@@ -17,18 +17,18 @@ function FullTable() {
                     <thead>
                         <tr>
                             {columns.map((column) => (
-                                <th className="px-3">{column}</th>
+                                <th className="px-3" key={column}>{column}</th>
                             ))}
                         </tr>
                     </thead>
                     <tbody>
                         {dataObjs.map( (obj) =>
                             (
-                                <tr>
+                                <tr key={obj.name}>
                                     {Object.values(obj)
                                             .filter((item, index) => index != 0)
                                                 .map((item) => 
-                                                    <td>{item}</td>
+                                                    <td key={item}>{item}</td>
                                                 )
                                     }
                                     
