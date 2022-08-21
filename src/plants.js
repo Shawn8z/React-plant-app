@@ -3,7 +3,8 @@ export const Plants = [
         "id":"1",
         "name":"Snake Plant",
         "family":"Asparagaceae",
-        "hardiness":"6","water":"When soil is dry",
+        "hardiness":"6",
+        "water":"When soil is dry",
         "mature_size":"7",
         "soil_type":"Sandy, well-drained",
         "sun_exposure":"Shade to partial sun"
