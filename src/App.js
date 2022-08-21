@@ -17,6 +17,7 @@ import FilteredTable from './Components/tables/filteredTable';
 import LoginModal from './Components/modals/login-modal';
 import RegisterModal from './Components/modals/register-modal';
 import AddPlantModal from './Components/modals/addPlant-modal';
+import TempLanding from './pages/tempLandingPage';
 
 
 
@@ -53,10 +54,10 @@ const getListFromSearch = (value) => setFilteredList(value);
       /> */}
 
 
-      <ProfileNavbar
+      {/* <ProfileNavbar
         handleshowAddPlant={() => handleshowAddPlant()}
         passListToApp={getListFromSearch}
-      />
+      /> */}
 
 
       {/* =====modals===== */}
@@ -77,10 +78,10 @@ const getListFromSearch = (value) => setFilteredList(value);
 
       {/* =====bodys===== */}
       {/* <MainBody /> */}
-      <ProfileBody incomingList={filteredList}/>
+      {/* <ProfileBody incomingList={filteredList}/> */}
   
       
-      
+      <TempLanding />
 
     </div>
   );
