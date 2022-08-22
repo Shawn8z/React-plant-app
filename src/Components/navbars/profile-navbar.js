@@ -28,7 +28,7 @@ function ProfileNavbar(props) {
                 
             </div>
             
-            <SearchAndFilter passDataToNav={props.passListToApp}/>
+            <SearchAndFilter passDataToNav={props.passListToProfilePage}/>
             <div>{dataFromSearch}</div>
             
         </div>

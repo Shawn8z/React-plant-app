@@ -11,8 +11,9 @@ function FirebaseObj() {
 
         const getPlants = async () => {
             const data  = await getDocs(userPlantsCollection);
-            setUserPlants(data.docs.map((doc) => ( {...doc.data()} ) ));
-            console.log(data.docs.map((doc) => ( { ...doc.data() }) ))
+            setUserPlants(data.docs.map((doc) => ( {...doc.data(), id: doc.id} ) ));
+            console.log(data.docs.map((doc) => ( { ...doc.data(), id: doc.id}) ))
+            // console.log(Object.keys(data.docs[0]))
         }
 
         getPlants()

@@ -1,15 +1,64 @@
-import Form from 'react-bootstrap/Form';
+import { useState } from 'react';
 
+import Form from 'react-bootstrap/Form';
+import { ButtonGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { addDoc } from 'firebase/firestore';
+
+import { collection } from 'firebase/firestore';
+import { db } from '../../firebase-config';
 
 
 function AddPlantModal(props) {
-    
+
+    const [name, setName] = useState('');
+    const [family, setFamily] = useState('');
+    const [hardiness, setHardiness] = useState('');
+    const [mature_size, setMature_size] = useState('');
+    const [soil_type, setSoil_type] = useState('');
+    const [sun_exporsure, setSunExporsure] = useState('');
+    const [water, setWater] = useState('');
+
+    const userPlantsCollection = collection(db, "Plants");
+
+    let addPlantObjTemplate = {
+        name: "",
+        family: "",
+        hardiness: "",
+        mature_size: "",
+        soil_type: "",
+        sun_exposure: "",
+        water: "",
+    }
+
+
+    const handleOnChange = (event) => {
+        
+        const target = event.target;
+        const value = target.value;
+        const key = target.name;
+        
+        addPlantObjTemplate[key] = value;
+
+    }
+
+    const handleAddPlantSubmit = (event) => {
+        console.log(addPlantObjTemplate);
+        appPlant();
+        event.preventDefault();
+    }
+
+
+    const appPlant = async () => {
+        await addDoc(userPlantsCollection, addPlantObjTemplate)
+    }
+
+
     return (
         <Modal
             {...props}
@@ -24,19 +73,19 @@ function AddPlantModal(props) {
             </Modal.Header>
             <Modal.Body>
                 
-                <Form>
+                <Form onSubmit={handleAddPlantSubmit}>
                     <Container>
                         <Row>
                             <Col>
                                 <Form.Group className="mb-3" controlId="name">
                                     <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" />
+                                    <Form.Control type="text" name="name" onChange={handleOnChange} required="required"/>
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group className="mb-3" controlId="family">
                                     <Form.Label>Family</Form.Label>
-                                    <Form.Control type="text"/>
+                                    <Form.Control type="text" name="family" onChange={handleOnChange} required="required"/>
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -45,13 +94,13 @@ function AddPlantModal(props) {
                             <Col>
                                 <Form.Group className="mb-3" controlId="hardiness">
                                     <Form.Label>Hardiness</Form.Label>
-                                    <Form.Control type="text" />
+                                    <Form.Control type="text" name="hardiness" onChange={handleOnChange} required="required"/>
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group className="mb-3" controlId="water">
                                     <Form.Label>Water</Form.Label>
-                                    <Form.Control type="text" />
+                                    <Form.Control type="text" name="water" onChange={handleOnChange} required="required"/>
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -60,13 +109,13 @@ function AddPlantModal(props) {
                             <Col>
                                 <Form.Group className="mb-3" controlId="size">
                                     <Form.Label>Mature Size</Form.Label>
-                                    <Form.Control type="text" />
+                                    <Form.Control type="text" name="mature_size" onChange={handleOnChange} required="required"/>
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group className="mb-3" controlId="soil">
                                     <Form.Label>Soil Type</Form.Label>
-                                    <Form.Control type="text" />
+                                    <Form.Control type="text" name="soil_type" onChange={handleOnChange} required="required"/>
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -75,18 +124,27 @@ function AddPlantModal(props) {
                             <Col>
                                 <Form.Group className="mb-3" controlId="sun">
                                     <Form.Label>Sun Exposure</Form.Label>
-                                    <Form.Control type="text" />
+                                    <Form.Control type="text" name="sun_exposure" onChange={handleOnChange} required="required"/>
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group className="mb-3" controlId="image">
                                     <Form.Label>Upload Image</Form.Label>
-                                    <Form.Control type="file" />
+                                    <Form.Control type="file" name="image" onChange={handleOnChange} required="required"/>
                                 </Form.Group>
                             </Col>
                         </Row>
 
+                        <Row className="justify-content-md-center">
+                            <Col md="auto">
+                                <ButtonGroup >
+                                    <Button type="submit" variant="light">Add Plant</Button>
+                                    <Button type="reset" variant="light" md="auto">Clear</Button>
+                                </ButtonGroup>
+                            </Col>
+                        </Row>
                     </Container>
+
                 </Form>
                 
             </Modal.Body>

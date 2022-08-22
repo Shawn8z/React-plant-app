@@ -61,7 +61,7 @@ const getListFromSearch = (value) => setFilteredList(value);
 
 
       {/* =====modals===== */}
-      <LoginModal
+      {/* <LoginModal
         show={showLogin}
         onHide={() => handleCloseLogin(false)}
       />
@@ -72,7 +72,7 @@ const getListFromSearch = (value) => setFilteredList(value);
       <AddPlantModal 
         show={showAddPlant}
         onHide={() => handleCloseAddPlant(false)}
-      />
+      /> */}
 
 
 
