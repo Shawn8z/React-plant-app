@@ -22,6 +22,7 @@ import AddPlantModal from './Components/modals/addPlant-modal';
 import TempLanding from './pages/tempLandingPage';
 import LandingPage from './pages/landingPage';
 import ProfilePage from './pages/profilePage';
+import { RequireAuth } from './Components/authStuff/RequireAuth';
 
 
 
@@ -51,8 +52,13 @@ const getListFromSearch = (value) => setFilteredList(value);
         <AuthProvider>
 
           <Routes>
+            
             <Route path="/" element={<LandingPage />} />
-            <Route path="profilePage" element={<ProfilePage />} />
+            <Route 
+              path="profilePage" 
+              element={<RequireAuth> <ProfilePage /> </RequireAuth>}
+            />
+            
           </Routes>
           
 

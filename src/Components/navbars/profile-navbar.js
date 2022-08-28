@@ -1,15 +1,36 @@
-
-
-import SearchAndFilter from "../searchAndFilter/searchAndFilter";
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { signOut } from "firebase/auth";
 
 import Button from 'react-bootstrap/Button';
+
+import { auth } from "../../firebase-config";
+import { useAuth } from '../authStuff/AuthProvider';
+import SearchAndFilter from "../searchAndFilter/searchAndFilter";
 
 
 function ProfileNavbar(props) {
     const [dataFromSearch, setDataFromSearch] = useState("");
 
-    const takeDataFromSearch = (value) => setDataFromSearch(value); 
+    const authContextStuff = useAuth();
+
+    // const takeDataFromSearch = (value) => setDataFromSearch(value); 
+
+    const handleSignOut = () => {
+        signOut(auth)
+            .then(() => {
+                authContextStuff.logout();
+                console.log("signed out");
+            })
+            .catch((error) => {
+                let errorCode = error.code;
+                let errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+            })
+
+    }
+
 
     return (
         <div>
@@ -21,7 +42,7 @@ function ProfileNavbar(props) {
                         Add Plant
                     </Button>
                     <span>  |  </span>
-                    <Button variant="light" >
+                    <Button variant="light" onClick={handleSignOut} >
                         LogOut
                     </Button>
                 </nav>

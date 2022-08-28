@@ -19,6 +19,8 @@ function Login() {
     const navigate = useNavigate();
     const location = useLocation()
 
+    const redirectPath = location.state ?.path || "profilePage";
+
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     }
@@ -29,12 +31,15 @@ function Login() {
     const handleOnSubmit = (event) => {
         event.preventDefault();
 
+        // console.log(redirectPath);
+
         signInWithEmailAndPassword(auth, email, passWord)
             .then((userCredential) => {
+                console.log(redirectPath);
                 const user = userCredential.user;
-                // console.log(user);
-                auth.login(user);
-                navigate()
+                authContextStuff.login(user);
+                navigate(redirectPath, { replace: true })
+                console.log("fired");
             })
             .catch((error) => {
                 const errorCode = error.code;
