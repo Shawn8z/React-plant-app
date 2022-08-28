@@ -1,15 +1,23 @@
 import { useState } from 'react';
+import { useNavigate, useLocation } from "react-router-dom";
+
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../../firebase-config';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
+import { useAuth } from '../authStuff/AuthProvider';
+
+
 function Login() {
 
     const [email, setEmail] = useState("");
     const [passWord, setPassWord] = useState("");
     const [error, setError] = useState(false);
+    const authContextStuff = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation()
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -24,11 +32,15 @@ function Login() {
         signInWithEmailAndPassword(auth, email, passWord)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log(user);
+                // console.log(user);
+                auth.login(user);
+                navigate()
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
             })
     }
 

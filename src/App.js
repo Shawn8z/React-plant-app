@@ -1,10 +1,11 @@
 import './App.css';
-import React, {useState} from "react";
-import AuthProvider from './Components/authProvider/AuthProvider';
+import { useState } from "react";
+import AuthProvider from './Components/authStuff/AuthProvider';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { Routes, Route, } from "react-router-dom";
 
 
 import MainNavbar from './Components/navbars/main-navbar';
@@ -20,8 +21,7 @@ import RegisterModal from './Components/modals/register-modal';
 import AddPlantModal from './Components/modals/addPlant-modal';
 import TempLanding from './pages/tempLandingPage';
 import LandingPage from './pages/landingPage';
-
-
+import ProfilePage from './pages/profilePage';
 
 
 
@@ -50,8 +50,11 @@ const getListFromSearch = (value) => setFilteredList(value);
     <div className="App">
         <AuthProvider>
 
-
-          <LandingPage />
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="profilePage" element={<ProfilePage />} />
+          </Routes>
+          
 
           {/* <TempLanding /> */}
         

@@ -11,12 +11,14 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<App />} >
           <Route path="mainPage" element={<MainPage />} />
           <Route path="profilePage" element={<ProfilePage />} />
         </Route>
-      </Routes>
+        
+      </Routes> */}
+      <App />
     </BrowserRouter>
   </React.StrictMode>
 );
