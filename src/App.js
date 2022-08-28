@@ -1,9 +1,10 @@
 import './App.css';
-import React, {useState} from "react"
+import React, {useState} from "react";
+import AuthProvider from './Components/authProvider/AuthProvider';
 
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css";
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal'
+import Modal from 'react-bootstrap/Modal';
 
 
 import MainNavbar from './Components/navbars/main-navbar';
@@ -18,6 +19,7 @@ import LoginModal from './Components/modals/login-modal';
 import RegisterModal from './Components/modals/register-modal';
 import AddPlantModal from './Components/modals/addPlant-modal';
 import TempLanding from './pages/tempLandingPage';
+import LandingPage from './pages/landingPage';
 
 
 
@@ -46,13 +48,24 @@ const getListFromSearch = (value) => setFilteredList(value);
 
   return (
     <div className="App">
+        <AuthProvider>
+
+
+          <LandingPage />
+
+          {/* <TempLanding /> */}
+        
+        </AuthProvider>
+
+
 
       {/* =====navbars===== */}
+      
+
       {/* <MainNavbar 
         handleShowRegister={handleShowRegister}
         handleShowLogin={handleShowLogin}
       /> */}
-
 
       {/* <ProfileNavbar
         handleshowAddPlant={() => handleshowAddPlant()}
@@ -75,13 +88,9 @@ const getListFromSearch = (value) => setFilteredList(value);
       /> */}
 
 
-
       {/* =====bodys===== */}
       {/* <MainBody /> */}
       {/* <ProfileBody incomingList={filteredList}/> */}
-  
-      
-      <TempLanding />
 
     </div>
   );

@@ -14,10 +14,10 @@ function Register() {
     const [passWordCheck, setPassWordCheck] = useState("");
 
 
-    const handleUserName = (event) => {
+    const handleUserNameChange = (event) => {
         setUserName(event.target.value);
     }
-    const handleEmail = (event) => {
+    const handleEmailChange = (event) => {
         setEmail(event.target.value);
     }
     const handlePassWordChange = (event) => {
@@ -44,8 +44,6 @@ function Register() {
         createUserWithEmailAndPassword(auth, email, passWord)
             .then((userCredential) => {
                 let userId = userCredential.user.uid;
-                
-                console.log(userId);
                 addUserObj(userId);
             })      
             .catch((error) => {
@@ -64,14 +62,14 @@ function Register() {
             <Form.Group className="mb-3" controlId="formUserName">
                 <Form.Label>userName</Form.Label>
 
-                <Form.Control type="text" placeholder="Enter email" onChange={handleUserName} required />
+                <Form.Control type="text" placeholder="Enter user name..." onChange={handleUserNameChange} required />
 
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formEmail">
                 <Form.Label>Email</Form.Label>
 
-                <Form.Control type="email" placeholder="Enter email" onChange={handleEmail} required />
+                <Form.Control type="email" placeholder="Enter email..." onChange={handleEmailChange} required />
 
 
                 <Form.Text className="text-muted">
@@ -82,7 +80,7 @@ function Register() {
             <Form.Group className="mb-3" controlId="formPassword">
                 <Form.Label>Password</Form.Label>
 
-                <Form.Control type="password" placeholder="Password" onChange={handlePassWordChange} required />
+                <Form.Control type="password" placeholder="Enter password..." onChange={handlePassWordChange} required />
 
 
             </Form.Group>
@@ -90,7 +88,7 @@ function Register() {
             <Form.Group className="mb-3" controlId="formRepeatPassword">
                 <Form.Label>Repeat Password</Form.Label>
 
-                <Form.Control type="password" placeholder="Password" onChange={handlePassWordCheckChange} required />
+                <Form.Control type="password" placeholder="Repeat password..." onChange={handlePassWordCheckChange} required />
 
             </Form.Group>
             <Button variant="primary" type="submit">
