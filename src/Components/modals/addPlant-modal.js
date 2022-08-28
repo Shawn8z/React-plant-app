@@ -1,17 +1,18 @@
 import { useState } from 'react';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../firebase-config';
+
 
 import Form from 'react-bootstrap/Form';
 import { ButtonGroup } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { addDoc } from 'firebase/firestore';
 
-import { collection } from 'firebase/firestore';
-import { db } from '../../firebase-config';
+
+
 
 
 function AddPlantModal(props) {
