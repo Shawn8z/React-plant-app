@@ -1,11 +1,14 @@
 import { useAuth } from "./AuthProvider";
 import { Navigate, useLocation } from "react-router-dom"
 
+
+
 export const RequireAuth = ({ children }) => {
     const location = useLocation();
-    const authContextStuff = useAuth();
+    const authContext = useAuth();
 
-    if (!authContextStuff.user) {
+    
+    if (!authContext.loginStatus) {
         return <Navigate to="/" state={{ path: location.pathname }} />
     }
 

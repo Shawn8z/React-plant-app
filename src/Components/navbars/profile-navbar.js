@@ -12,21 +12,22 @@ import SearchAndFilter from "../searchAndFilter/searchAndFilter";
 function ProfileNavbar(props) {
     const [dataFromSearch, setDataFromSearch] = useState("");
 
-    const authContextStuff = useAuth();
+    const authContext = useAuth();
 
     // const takeDataFromSearch = (value) => setDataFromSearch(value); 
 
     const handleSignOut = () => {
         signOut(auth)
             .then(() => {
-                authContextStuff.logout();
-                console.log("signed out");
+                authContext.logout();
+                authContext.setUser("");
+                // console.log("signed out");
             })
             .catch((error) => {
                 let errorCode = error.code;
                 let errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
+                // console.log(errorCode);
+                // console.log(errorMessage);
             })
 
     }

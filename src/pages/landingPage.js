@@ -1,7 +1,10 @@
 import { useState } from "react";
+
+
 import Navbar from "../Components/navbars/navbar";
 import LoginModal from "../Components/modals/login-modal";
 import RegisterModal from "../Components/modals/register-modal";
+import MainBody from "../Components/bodys/main-body";
 
 function LandingPage() {
 
@@ -33,7 +36,7 @@ function LandingPage() {
                 onHide={() => handleCloseRegister(false)}
             />
 
-
+            <MainBody />
         </div>
     )
 }

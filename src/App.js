@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AuthProvider from './Components/authStuff/AuthProvider';
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -29,31 +29,54 @@ import { RequireAuth } from './Components/authStuff/RequireAuth';
 function App(props) {
 
 
-const [showLogin, setShowLogin] = useState(false);
-const [showRegister, setShowRegister] = useState(false);
-const [showAddPlant, setShowAddPlant] = useState(false);
-const [filteredList, setFilteredList] = useState("");
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+  const [showAddPlant, setShowAddPlant] = useState(false);
+  const [filteredList, setFilteredList] = useState("");
+  const [savedUserObj, setSavedUserObj] = useState("");
 
+  const handleCloseLogin = () => setShowLogin(false);
+  const handleShowLogin = () => setShowLogin(true);
 
-const handleCloseLogin = () => setShowLogin(false);
-const handleShowLogin = () => setShowLogin(true);
+  const handleCloseRegister = () => setShowRegister(false);
+  const handleShowRegister = () => setShowRegister(true);
 
-const handleCloseRegister = () => setShowRegister(false);
-const handleShowRegister = () => setShowRegister(true);
+  const handleCloseAddPlant = () => setShowAddPlant(false);
+  const handleshowAddPlant = () => setShowAddPlant(true);
 
-const handleCloseAddPlant = () => setShowAddPlant(false);
-const handleshowAddPlant = () => setShowAddPlant(true);
+  const getListFromSearch = (value) => setFilteredList(value);
 
-const getListFromSearch = (value) => setFilteredList(value);
+  const getUserFromLocalStorage = () => {
+
+    let loggedVal = localStorage.getItem("isLogged");
+    let userObj = JSON.parse(loggedVal);
+
+    if (userObj) {
+      return userObj;
+    }
+    
+  }
+
+  useEffect(() => {
+
+    let user = getUserFromLocalStorage();
+    // console.log("app effect fired");
+    // console.log(user);
+    setSavedUserObj(user);
+    
+  }, [])
 
 
   return (
     <div className="App">
-        <AuthProvider>
+        {/* pass these props because the component with the logout function need 
+          to set the savedUserObj to empty when logging out, other wise line 77
+         condition will always be true */}
+        <AuthProvider user={savedUserObj} setUser={setSavedUserObj}>
 
           <Routes>
             
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={savedUserObj ? <ProfilePage /> : <LandingPage />} />
             <Route 
               path="profilePage" 
               element={<RequireAuth> <ProfilePage /> </RequireAuth>}

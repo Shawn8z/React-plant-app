@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -14,10 +14,17 @@ function Login() {
 
     const [email, setEmail] = useState("");
     const [passWord, setPassWord] = useState("");
-    const [error, setError] = useState(false);
-    const authContextStuff = useAuth();
+    const authContext = useAuth();
     const navigate = useNavigate();
-    const location = useLocation()
+    const location = useLocation();
+    const [loginError, setLoginError] = useState("");
+
+
+    useEffect(() => {
+        // console.log(loginError);
+    }, [loginError]);
+
+    
 
     const redirectPath = location.state ?.path || "profilePage";
 
@@ -35,18 +42,20 @@ function Login() {
 
         signInWithEmailAndPassword(auth, email, passWord)
             .then((userCredential) => {
-                console.log(redirectPath);
+                // console.log(redirectPath);
                 const user = userCredential.user;
-                authContextStuff.login(user);
+                authContext.login(user);
                 navigate(redirectPath, { replace: true })
-                console.log("fired");
+                // console.log("fired");
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
+                setLoginError(errorCode);
+        
+                
             })
+        
     }
 
     return(
@@ -54,19 +63,20 @@ function Login() {
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email</Form.Label>
 
-                <Form.Control type="email" placeholder="Enter email" onChange={handleEmailChange} required />
+                <Form.Control type="email" placeholder="Enter email..." onChange={handleEmailChange} required />
 
+                {loginError === 'auth/user-not-found' && <Form.Text>Wrong Email</Form.Text> }
             </Form.Group>
             
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
 
-                <Form.Control type="password" placeholder="Password" onChange={handlePassWordChange} required />
+                <Form.Control type="password" placeholder="Enter password..." onChange={handlePassWordChange} required />
+
+                {loginError === "auth/wrong-password"  && <Form.Text>Wrong Password</Form.Text> }
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
+            
             <Button variant="primary" type="submit">
                 Submit
             </Button>
