@@ -20,7 +20,7 @@ function ProfileNavbar(props) {
         signOut(auth)
             .then(() => {
                 authContext.logout();
-                authContext.setUser("");
+                authContext.setStatus(null);
                 // console.log("signed out");
             })
             .catch((error) => {

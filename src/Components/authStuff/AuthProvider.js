@@ -7,19 +7,19 @@ function AuthProvider( props ) {
 
     const [loginStatus, setLoginStatus] = useState(null);
 
-    const setUser = props.setUser
+    const setStatus = props.setStatus
 
     useEffect(() => {
 
-        let user = props.user;
+        let status = props.status;
         
-        setLoginStatus(user);
+        setLoginStatus(status);
+
     }, [])
 
     const login = (user) => {
         setLoginStatus(user);
-        let strUser = JSON.stringify(user);
-        localStorage.setItem("isLogged", strUser);
+        localStorage.setItem("isLogged", "1");
     }
 
     const logout = () => {
@@ -28,7 +28,7 @@ function AuthProvider( props ) {
     }
 
     return (
-        <AuthContext.Provider value={{ loginStatus, login, logout, setUser }}>
+        <AuthContext.Provider value={{ loginStatus, login, logout, setStatus }}>
             {props.children}
         </AuthContext.Provider>
     )
