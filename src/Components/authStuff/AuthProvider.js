@@ -6,19 +6,20 @@ const AuthContext = createContext(null);
 function AuthProvider( props ) {
 
     const [loginStatus, setLoginStatus] = useState(null);
+    const [userId, setUserId] = useState(null);
 
     const setStatus = props.setStatus
 
     useEffect(() => {
 
         let status = props.status;
-        
         setLoginStatus(status);
 
     }, [])
 
     const login = (user) => {
         setLoginStatus(user);
+        setUserId(user.uid);
         localStorage.setItem("isLogged", "1");
     }
 
@@ -28,7 +29,7 @@ function AuthProvider( props ) {
     }
 
     return (
-        <AuthContext.Provider value={{ loginStatus, login, logout, setStatus }}>
+        <AuthContext.Provider value={{ loginStatus, userId, login, logout, setStatus }}>
             {props.children}
         </AuthContext.Provider>
     )

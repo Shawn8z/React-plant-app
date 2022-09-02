@@ -29,7 +29,7 @@ function App() {
   return (
     <div className="App">
         {/* pass these props because the component with the logout function need 
-          to set the savedUserObj to empty when logging out, other wise line 77
+          to set the savedUserObj to empty when logging out, other wise line 38
          condition will always be true */}
         <AuthProvider status={loggedStatus} setStatus={setLoggedStatus}>
 

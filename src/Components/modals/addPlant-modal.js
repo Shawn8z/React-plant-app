@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, setDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase-config';
+import { useAuth } from '../authStuff/AuthProvider';
 
 
 import Form from 'react-bootstrap/Form';
@@ -26,6 +27,7 @@ function AddPlantModal(props) {
     const [water, setWater] = useState('');
 
     const userPlantsCollection = collection(db, "Plants");
+    const authContext = useAuth();
 
     let addPlantObjTemplate = {
         name: "",
@@ -56,7 +58,16 @@ function AddPlantModal(props) {
 
 
     const appPlant = async () => {
-        await addDoc(userPlantsCollection, addPlantObjTemplate)
+        
+        let userDoc = doc(db, "users", authContext.userId);
+        await updateDoc(userDoc, {
+            
+        })
+        // console.log(userDoc.doc("Garden"));
+      
+
+        // console.log(docSnap.data());
+
     }
 
 
@@ -80,13 +91,13 @@ function AddPlantModal(props) {
                             <Col>
                                 <Form.Group className="mb-3" controlId="name">
                                     <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" name="name" onChange={handleOnChange} required="required"/>
+                                    <Form.Control type="text" name="name" onChange={handleOnChange} required />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group className="mb-3" controlId="family">
                                     <Form.Label>Family</Form.Label>
-                                    <Form.Control type="text" name="family" onChange={handleOnChange} required="required"/>
+                                    <Form.Control type="text" name="family" onChange={handleOnChange} required />
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -95,13 +106,13 @@ function AddPlantModal(props) {
                             <Col>
                                 <Form.Group className="mb-3" controlId="hardiness">
                                     <Form.Label>Hardiness</Form.Label>
-                                    <Form.Control type="text" name="hardiness" onChange={handleOnChange} required="required"/>
+                                    <Form.Control type="text" name="hardiness" onChange={handleOnChange} required />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group className="mb-3" controlId="water">
                                     <Form.Label>Water</Form.Label>
-                                    <Form.Control type="text" name="water" onChange={handleOnChange} required="required"/>
+                                    <Form.Control type="text" name="water" onChange={handleOnChange} required />
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -110,13 +121,13 @@ function AddPlantModal(props) {
                             <Col>
                                 <Form.Group className="mb-3" controlId="size">
                                     <Form.Label>Mature Size</Form.Label>
-                                    <Form.Control type="text" name="mature_size" onChange={handleOnChange} required="required"/>
+                                    <Form.Control type="text" name="mature_size" onChange={handleOnChange} required />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group className="mb-3" controlId="soil">
                                     <Form.Label>Soil Type</Form.Label>
-                                    <Form.Control type="text" name="soil_type" onChange={handleOnChange} required="required"/>
+                                    <Form.Control type="text" name="soil_type" onChange={handleOnChange} required />
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -125,13 +136,13 @@ function AddPlantModal(props) {
                             <Col>
                                 <Form.Group className="mb-3" controlId="sun">
                                     <Form.Label>Sun Exposure</Form.Label>
-                                    <Form.Control type="text" name="sun_exposure" onChange={handleOnChange} required="required"/>
+                                    <Form.Control type="text" name="sun_exposure" onChange={handleOnChange} required />
                                 </Form.Group>
                             </Col>
                             <Col>
                                 <Form.Group className="mb-3" controlId="image">
                                     <Form.Label>Upload Image</Form.Label>
-                                    <Form.Control type="file" name="image" onChange={handleOnChange} required="required"/>
+                                    <Form.Control type="file" name="image" onChange={handleOnChange} />
                                 </Form.Group>
                             </Col>
                         </Row>
