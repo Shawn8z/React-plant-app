@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { collection, addDoc, setDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
+import { collection, setDoc, doc, updateDoc, } from 'firebase/firestore';
 import { db } from '../../firebase-config';
 import { useAuth } from '../authStuff/AuthProvider';
 
@@ -18,13 +18,14 @@ import Col from 'react-bootstrap/Col';
 
 function AddPlantModal(props) {
 
-    const [name, setName] = useState('');
-    const [family, setFamily] = useState('');
-    const [hardiness, setHardiness] = useState('');
-    const [mature_size, setMature_size] = useState('');
-    const [soil_type, setSoil_type] = useState('');
-    const [sun_exporsure, setSunExporsure] = useState('');
-    const [water, setWater] = useState('');
+    // const [name, setName] = useState('');
+    // const [family, setFamily] = useState('');
+    // const [hardiness, setHardiness] = useState('');
+    // const [mature_size, setMature_size] = useState('');
+    // const [soil_type, setSoil_type] = useState('');
+    // const [sun_exporsure, setSunExporsure] = useState('');
+    // const [water, setWater] = useState('');
+    const [newObj, setNewObj] = useState({})
 
     const userPlantsCollection = collection(db, "Plants");
     const authContext = useAuth();
@@ -39,6 +40,11 @@ function AddPlantModal(props) {
         water: "",
     }
 
+    let testObj = {
+        test: "this is a test obj"
+    }
+
+    // let userDoc = doc(db, "users", authContext.userId);
 
     const handleOnChange = (event) => {
         
@@ -51,22 +57,18 @@ function AddPlantModal(props) {
     }
 
     const handleAddPlantSubmit = (event) => {
-        console.log(addPlantObjTemplate);
-        appPlant();
+        console.log(newObj);
+        // appPlant();
         event.preventDefault();
     }
 
 
     const appPlant = async () => {
         
-        let userDoc = doc(db, "users", authContext.userId);
-        await updateDoc(userDoc, {
-            
-        })
-        // console.log(userDoc.doc("Garden"));
-      
+        // await updateDoc(userDoc, {
+        //     Garden: [ testObj ]
+        // })
 
-        // console.log(docSnap.data());
 
     }
 

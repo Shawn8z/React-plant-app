@@ -13,7 +13,9 @@ function AuthProvider( props ) {
     useEffect(() => {
 
         let status = props.status;
+        let id = props.id;
         setLoginStatus(status);
+        setUserId(id);
 
     }, [])
 
@@ -21,11 +23,13 @@ function AuthProvider( props ) {
         setLoginStatus(user);
         setUserId(user.uid);
         localStorage.setItem("isLogged", "1");
+        localStorage.setItem("id", user.uid);
     }
 
     const logout = () => {
         setLoginStatus(null);
         localStorage.removeItem("isLogged");
+        localStorage.removeItem("id");
     }
 
     return (

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { db, auth } from "../../firebase-config"
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc, addDoc, collection } from 'firebase/firestore';
+import { doc, setDoc, } from 'firebase/firestore';
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
