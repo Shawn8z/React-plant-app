@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainNavbar from "../Components/navbars/main-navbar";
 import MainBody from "../Components/bodys/main-body";
 import LoginModal from "../Components/modals/login-modal";

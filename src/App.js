@@ -15,21 +15,22 @@ import { RequireAuth } from './Components/authStuff/RequireAuth';
 function App() {
 
 
-  let [loggedStatus, setLoggedStatus] = useState("null");
+  let [loggedStatus, setLoggedStatus] = useState(null);
   let [userId, setUserId] = useState(null);
   
 
   useEffect(() => {
 
-    console.log("app rendered");
     let status = localStorage.getItem("isLogged");
     let id = localStorage.getItem("id");
     setLoggedStatus(status);
     setUserId(id);
-    console.log(loggedStatus);
-    console.log(userId);
+    // console.log(loggedStatus)
     
-  }, [])
+    // return () => {
+    //   console.log("unMounted")
+    // }
+  }, [userId, loggedStatus])
 
 
   return (

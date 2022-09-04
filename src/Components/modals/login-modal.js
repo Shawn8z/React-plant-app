@@ -6,6 +6,7 @@ import Login from '../login&register/login';
 
 function LoginModal(props) {
     
+    
     return (
         <Modal
             {...props}

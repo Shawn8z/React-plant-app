@@ -17,7 +17,7 @@ function AuthProvider( props ) {
         setLoginStatus(status);
         setUserId(id);
 
-    }, [])
+    })
 
     const login = (user) => {
         setLoginStatus(user);

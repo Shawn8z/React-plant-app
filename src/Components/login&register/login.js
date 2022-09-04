@@ -20,10 +20,7 @@ function Login() {
     const [loginError, setLoginError] = useState("");
 
 
-    useEffect(() => {
-        // console.log(loginError);
-    }, [loginError]);
-
+    
     
 
     const redirectPath = location.state ?.path || "profilePage";
@@ -36,7 +33,6 @@ function Login() {
     }
 
     const handleOnSubmit = (event) => {
-        event.preventDefault();
 
         // console.log(redirectPath);
 
@@ -45,6 +41,7 @@ function Login() {
                 // console.log(redirectPath);
                 const user = userCredential.user;
                 authContext.login(user);
+                authContext.
                 navigate(redirectPath, { replace: true })
                 // console.log("fired");
             })
