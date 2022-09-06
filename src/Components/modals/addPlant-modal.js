@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { collection, setDoc, doc, updateDoc, } from 'firebase/firestore';
+import { useState, useEffect } from 'react';
+import { collection, setDoc, doc, updateDoc, getDoc, } from 'firebase/firestore';
 import { db } from '../../firebase-config';
 import { useAuth } from '../authStuff/AuthProvider';
 
@@ -25,10 +25,39 @@ function AddPlantModal(props) {
     // const [soil_type, setSoil_type] = useState('');
     // const [sun_exporsure, setSunExporsure] = useState('');
     // const [water, setWater] = useState('');
-    const [newObj, setNewObj] = useState({})
+    const [newObj, setNewObj] = useState({});
+    const [userPlants, setUserPlants] = useState([]);
 
-    const userPlantsCollection = collection(db, "Plants");
     const authContext = useAuth();
+    const id = authContext.userId;
+
+    let userId = authContext.userId;
+    
+    const testFunction = async () => {
+        const docRef = doc(db, "users", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+        } else {
+            console.log("No such document!");
+        }
+    }
+    
+    
+
+        
+
+
+    useEffect(() => {
+        // const id = authContext.userId;
+        // if (id) {
+        //     console.log(id);
+        // } else {
+        //     console.log("id not ready yet");
+        // }
+        // testFunction()
+    }, [userId])
 
     let addPlantObjTemplate = {
         name: "",
@@ -41,10 +70,13 @@ function AddPlantModal(props) {
     }
 
     let testObj = {
-        test: "this is a test obj"
+        test: "this is a test obj1"
     }
 
-    // let userDoc = doc(db, "users", authContext.userId);
+    // const getUserPlants = async () => {
+    //     let result = await getDoc(userDoc);
+    //     return result.data();
+    // }
 
     const handleOnChange = (event) => {
         
@@ -57,11 +89,16 @@ function AddPlantModal(props) {
     }
 
     const handleAddPlantSubmit = (event) => {
-        console.log(newObj);
+        // console.log(newObj);
         // appPlant();
         event.preventDefault();
     }
 
+    // const getGarden = async () => {
+        
+    //     let result = await getDoc(userDoc);
+    //     console.log(result);
+    // }
 
     const appPlant = async () => {
         

@@ -33,17 +33,16 @@ function Login() {
     }
 
     const handleOnSubmit = (event) => {
+        event.preventDefault()
 
         // console.log(redirectPath);
 
         signInWithEmailAndPassword(auth, email, passWord)
             .then((userCredential) => {
-                // console.log(redirectPath);
+
                 const user = userCredential.user;
                 authContext.login(user);
-                authContext.
                 navigate(redirectPath, { replace: true })
-                // console.log("fired");
             })
             .catch((error) => {
                 const errorCode = error.code;

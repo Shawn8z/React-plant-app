@@ -1,3 +1,4 @@
+
 import { useState, createContext, useContext, useEffect } from "react";
 
 
@@ -12,12 +13,10 @@ function AuthProvider( props ) {
 
     useEffect(() => {
 
-        let status = props.status;
-        let id = props.id;
-        setLoginStatus(status);
-        setUserId(id);
+        setLoginStatus(props.status);
+        setUserId(props.id)
 
-    })
+    }, [props.status, props.id]);
 
     const login = (user) => {
         setLoginStatus(user);
@@ -32,9 +31,21 @@ function AuthProvider( props ) {
         localStorage.removeItem("id");
     }
 
+    const setUserState = (id, state) => {
+        setUserId(id);
+        setLoginStatus(state);
+    }
+
+    // this function is for debugging
+    const handleClick = () => {
+        console.log(loginStatus);
+        console.log(userId);
+    }
+
     return (
         <AuthContext.Provider value={{ loginStatus, userId, login, logout, setStatus }}>
             {props.children}
+            <button onClick={handleClick}>id and status in authProvider</button>
         </AuthContext.Provider>
     )
 }
