@@ -1,5 +1,7 @@
 
 import { useState, createContext, useContext, useEffect } from "react";
+import { db } from "../../firebase-config";
+import { doc, getDoc } from 'firebase/firestore';
 
 
 const AuthContext = createContext(null);
@@ -8,44 +10,51 @@ function AuthProvider( props ) {
 
     const [loginStatus, setLoginStatus] = useState(null);
     const [userId, setUserId] = useState(null);
+    const [garden, setGarden] = useState(null);
 
     const setStatus = props.setStatus
 
     useEffect(() => {
 
         setLoginStatus(props.status);
-        setUserId(props.id)
+        setUserId(props.id);
+        setGarden(props.garden);
 
-    }, [props.status, props.id]);
+    }, [props.status, props.id, props.garden]);
 
     const login = (user) => {
         setLoginStatus(user);
         setUserId(user.uid);
+        props.setStatus(user);
+        props.setId(user.uid);
+
         localStorage.setItem("isLogged", "1");
         localStorage.setItem("id", user.uid);
+
+        let strGarden = JSON.stringify(garden);
+        localStorage.setItem("Garden", strGarden);
     }
 
     const logout = () => {
         setLoginStatus(null);
         localStorage.removeItem("isLogged");
         localStorage.removeItem("id");
+        localStorage.removeItem("Garden");
     }
 
-    const setUserState = (id, state) => {
-        setUserId(id);
-        setLoginStatus(state);
-    }
 
     // this function is for debugging
-    const handleClick = () => {
-        console.log(loginStatus);
-        console.log(userId);
-    }
+    // const handleClick = () => {
+    //     console.log(loginStatus);
+    //     console.log(userId);
+    // }
 
     return (
-        <AuthContext.Provider value={{ loginStatus, userId, login, logout, setStatus }}>
+        <AuthContext.Provider value={{ loginStatus, userId, login, logout, setStatus, garden }}>
             {props.children}
-            <button onClick={handleClick}>id and status in authProvider</button>
+
+            {/* this button is for debuging */}
+            {/* <button onClick={handleClick}>id and status in authProvider</button> */}
         </AuthContext.Provider>
     )
 }

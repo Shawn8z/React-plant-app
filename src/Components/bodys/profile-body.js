@@ -7,7 +7,6 @@ import Stack from 'react-bootstrap/Stack';
 import Table from 'react-bootstrap/Table';
 
 import React, { useState } from "react";
-// import { BasicTable } from '../tables/BasicTable';
 import FullTable from '../tables/fullTable';
 import FilteredTable from '../tables/filteredTable';
 import FirebaseObj from '../firebase-obj-tag/firebaseObj';

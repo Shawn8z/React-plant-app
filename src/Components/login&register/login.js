@@ -39,7 +39,6 @@ function Login() {
 
         signInWithEmailAndPassword(auth, email, passWord)
             .then((userCredential) => {
-
                 const user = userCredential.user;
                 authContext.login(user);
                 navigate(redirectPath, { replace: true })

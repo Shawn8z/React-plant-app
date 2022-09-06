@@ -23,34 +23,61 @@ function App() {
   let [loggedStatus, setLoggedStatus] = useState(null);
   let [userId, setUserId] = useState(null);
   let [userGarden, setUserGarden] = useState(null);
-  
-  
-  const handleClick = () => {
-    console.log(loggedStatus);
-    console.log(userId);
-}
+
+  // this function is for debugging
+  // const handleClick = () => {
+  //   console.log(loggedStatus);
+  //   console.log(userId);
+  // }
 
   useEffect(() => {
-    // console.log("app fired");
+
     let status = localStorage.getItem("isLogged");
     let id = localStorage.getItem("id");
+    let garden = localStorage.getItem("Garden");
     setLoggedStatus(status);
     setUserId(id);
+    
+
+
+    // if (garden == "null") {
+    //   console.log("garden has null");
+    //   console.log("getting it from server");
+
+
+    //   getGarden(id)
+    //     .then((res) => {
+    //       // console.log(res["Garden"]);
+    //       setUserGarden(res[["Garden"]]);
+
+    //       let strGarden = JSON.stringify(userGarden);
+    //       console.log(strGarden);
+    //       // localStorage.setItem("Garden", strGarden);
+    //     });
+
+    // } else {
+    //   console.log("getting garden from localStorage");
+    //   setUserGarden(garden);
+    // } 
+
     if(id) {
-      testFunction(id)
-      .then(res => console.log(res["Garden"]));
-      // console.log(garden);
+      getGarden(id)
+      .then((res) => {
+        // console.log(res["Garden"]);
+        setUserGarden(res[["Garden"]]);
+
+      });
     }
-    // console.log(userGarden);
+
 
   }, [userId, loggedStatus]);
 
-  const testFunction = async (userId) => {
-    const docRef = doc(db, "users", userId);
-    const docSnap = await getDoc(docRef);
+  const getGarden = async (userId) => {
+    const userRef = doc(db, "users", userId);
+    const usersSnap = await getDoc(userRef);
 
-    if (docSnap.exists()) {
-        return docSnap.data();
+    if (usersSnap.exists()) {
+      return usersSnap.data();
     }
   }
 
@@ -59,23 +86,34 @@ function App() {
       {/* pass these props because the component with the logout function need 
         to set the savedUserObj to empty when logging out, other wise line 38
         condition will always be true */}
-      <AuthProvider status={loggedStatus} setStatus={setLoggedStatus} id={userId} >
+      <AuthProvider
+        status={loggedStatus}
+        setStatus={setLoggedStatus}
+        id={userId}
+        setId={setUserId}
+        garden={userGarden}
+        setGarden={setUserGarden}
+      >
 
         <Routes>
-          
-          <Route path="/" element={ loggedStatus ? <ProfilePage /> : <LandingPage />} />
-          <Route 
-            path="profilePage" 
+
+          <Route path="/" element={loggedStatus ? <ProfilePage /> : <LandingPage />} />
+          <Route
+            path="profilePage"
             element={<RequireAuth> <ProfilePage /> </RequireAuth>}
           />
-          
+
         </Routes>
-        
+
 
         {/* <TempLanding /> */}
-      
+
       </AuthProvider>
-      <button onClick={handleClick}>app status and id</button>
+
+
+      {/* this button is for debuging */}
+      {/* <button onClick={handleClick}>app status and id</button> */}
+
     </div>
   );
 }

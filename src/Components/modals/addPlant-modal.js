@@ -29,35 +29,11 @@ function AddPlantModal(props) {
     const [userPlants, setUserPlants] = useState([]);
 
     const authContext = useAuth();
-    const id = authContext.userId;
-
-    let userId = authContext.userId;
-    
-    const testFunction = async () => {
-        const docRef = doc(db, "users", id);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-        } else {
-            console.log("No such document!");
-        }
-    }
-    
-    
-
-        
-
+    let userGarden = authContext.garden;
 
     useEffect(() => {
-        // const id = authContext.userId;
-        // if (id) {
-        //     console.log(id);
-        // } else {
-        //     console.log("id not ready yet");
-        // }
-        // testFunction()
-    }, [userId])
+
+    }, [])
 
     let addPlantObjTemplate = {
         name: "",
@@ -67,16 +43,13 @@ function AddPlantModal(props) {
         soil_type: "",
         sun_exposure: "",
         water: "",
+        image: "",
     }
 
-    let testObj = {
-        test: "this is a test obj1"
-    }
-
-    // const getUserPlants = async () => {
-    //     let result = await getDoc(userDoc);
-    //     return result.data();
+    // let testObj = {
+    //     test: "this is a test obj1"
     // }
+
 
     const handleOnChange = (event) => {
         
@@ -85,28 +58,24 @@ function AddPlantModal(props) {
         const key = target.name;
         
         addPlantObjTemplate[key] = value;
-
     }
 
-    const handleAddPlantSubmit = (event) => {
-        // console.log(newObj);
-        // appPlant();
+    const handleAddPlantSubmit = (event) => {        
+        
+        let newObj = {...addPlantObjTemplate};
+        let gardenArr = userGarden;
+        gardenArr.push(newObj);
+        console.log(gardenArr);
+        appPlant(gardenArr);
         event.preventDefault();
     }
 
-    // const getGarden = async () => {
-        
-    //     let result = await getDoc(userDoc);
-    //     console.log(result);
-    // }
-
-    const appPlant = async () => {
-        
-        // await updateDoc(userDoc, {
-        //     Garden: [ testObj ]
-        // })
 
 
+    const appPlant = async (arr) => {
+        let id = authContext.userId;
+        const userRef = doc(db, "users", id);
+        await updateDoc(userRef, { Garden: arr });
     }
 
 
