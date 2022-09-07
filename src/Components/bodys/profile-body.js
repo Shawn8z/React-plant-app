@@ -8,6 +8,7 @@ import Table from 'react-bootstrap/Table';
 
 import React, { useState } from "react";
 import FullTable from '../tables/fullTable';
+import FirebaseTable from '../tables/firebase_table';
 import FilteredTable from '../tables/filteredTable';
 import FirebaseObj from '../firebase-obj-tag/firebaseObj';
 
@@ -21,11 +22,13 @@ function ProfileBody(props) {
                 <Col lg={10}>
                     {/* <BasicTable /> */}
 
-                    <FullTable />
+                    {/* <FullTable /> */}
+
+                    <FirebaseTable />
 
                     <FilteredTable list = {props.incomingList} />
 
-                    <FirebaseObj />
+                    
                 </Col>
             </Row>
         </Container>

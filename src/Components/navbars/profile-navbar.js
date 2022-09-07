@@ -21,7 +21,6 @@ function ProfileNavbar(props) {
             .then(() => {
                 authContext.logout();
                 authContext.setStatus(null);
-                // console.log("signed out");
             })
             .catch((error) => {
                 let errorCode = error.code;

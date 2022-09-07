@@ -30,42 +30,23 @@ function App() {
   //   console.log(userId);
   // }
 
+  const authContext = useAuth();
+
+
   useEffect(() => {
 
     let status = localStorage.getItem("isLogged");
     let id = localStorage.getItem("id");
-    let garden = localStorage.getItem("Garden");
+
     setLoggedStatus(status);
     setUserId(id);
-    
 
-
-    // if (garden == "null") {
-    //   console.log("garden has null");
-    //   console.log("getting it from server");
-
-
-    //   getGarden(id)
-    //     .then((res) => {
-    //       // console.log(res["Garden"]);
-    //       setUserGarden(res[["Garden"]]);
-
-    //       let strGarden = JSON.stringify(userGarden);
-    //       console.log(strGarden);
-    //       // localStorage.setItem("Garden", strGarden);
-    //     });
-
-    // } else {
-    //   console.log("getting garden from localStorage");
-    //   setUserGarden(garden);
-    // } 
-
+    // only run this when id is not null;
     if(id) {
       getGarden(id)
       .then((res) => {
         // console.log(res["Garden"]);
         setUserGarden(res[["Garden"]]);
-
       });
     }
 

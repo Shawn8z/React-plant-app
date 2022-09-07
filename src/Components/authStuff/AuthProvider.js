@@ -12,7 +12,7 @@ function AuthProvider( props ) {
     const [userId, setUserId] = useState(null);
     const [garden, setGarden] = useState(null);
 
-    const setStatus = props.setStatus
+    const setStatus = props.setStatus;
 
     useEffect(() => {
 
@@ -23,16 +23,17 @@ function AuthProvider( props ) {
     }, [props.status, props.id, props.garden]);
 
     const login = (user) => {
+        //set local state with user and user id
         setLoginStatus(user);
         setUserId(user.uid);
+
+        // set Status and Id from App
         props.setStatus(user);
         props.setId(user.uid);
 
         localStorage.setItem("isLogged", "1");
         localStorage.setItem("id", user.uid);
 
-        let strGarden = JSON.stringify(garden);
-        localStorage.setItem("Garden", strGarden);
     }
 
     const logout = () => {
@@ -52,7 +53,6 @@ function AuthProvider( props ) {
     return (
         <AuthContext.Provider value={{ loginStatus, userId, login, logout, setStatus, garden }}>
             {props.children}
-
             {/* this button is for debuging */}
             {/* <button onClick={handleClick}>id and status in authProvider</button> */}
         </AuthContext.Provider>
