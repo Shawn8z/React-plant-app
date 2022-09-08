@@ -1,7 +1,5 @@
 
 import { useState, createContext, useContext, useEffect } from "react";
-import { db } from "../../firebase-config";
-import { doc, getDoc } from 'firebase/firestore';
 
 
 const AuthContext = createContext(null);
@@ -11,7 +9,6 @@ function AuthProvider( props ) {
     const [loginStatus, setLoginStatus] = useState(null);
     const [userId, setUserId] = useState(null);
     const [garden, setGarden] = useState(null);
-
     const setStatus = props.setStatus;
 
     useEffect(() => {
@@ -31,18 +28,16 @@ function AuthProvider( props ) {
         props.setStatus(user);
         props.setId(user.uid);
 
+        // store loginStatus and userId into localStorage
         localStorage.setItem("isLogged", "1");
         localStorage.setItem("id", user.uid);
-
     }
 
     const logout = () => {
         setLoginStatus(null);
         localStorage.removeItem("isLogged");
         localStorage.removeItem("id");
-        localStorage.removeItem("Garden");
     }
-
 
     // this function is for debugging
     // const handleClick = () => {

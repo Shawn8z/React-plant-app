@@ -1,49 +1,71 @@
-import { Table, Container, Row, Column} from "react-bootstrap";
-// import { Plants } from "../../plants";
+
+import { Table, Container, Row } from "react-bootstrap";
+import { ImCross, ImPencil } from "react-icons/im";
+
+import "./firebase_table.css"
 import { useAuth } from "../authStuff/AuthProvider";
 
 
 function FirebaseTable() {
-    
+
+
+
     const authContext = useAuth();
     let plants = authContext.garden;
-    
-    console.log(Object.keys(plants[0]));
-    const allKeys = Object.keys(plants[0]).slice(1);
-    
-    const columns = allKeys.map((item) => item[0].toUpperCase() + item.slice(1));
 
-    const dataObjs = [...plants];
+    const handleEditOnClick = (event) => {
+        console.log("you clicked edit");
+    }
 
+    const handleDeleteOnClick = (event) => {
+        console.log("you clicked delete plant");
+    }
+
+    // prepare column names
+    const columns = ["Name", "Family", "Hardiness", "Water", "Mature_size", "Soil_type", "Sun_exposure"];
+    
+    //prepare keys for calling plant attribute
+    const keys = columns.map((item) => item.toLowerCase());
+    let columnNames = columns.map((column) => <th className="px-3" key={column}>{column}</th>);
+    
+    let plantRows = null;
+    if (plants) {
+        plantRows = plants.map((plant) => 
+            <tr key={plant.name}>
+                {keys.map((key) => <td key={plant[key]}>{plant[key]}</td>)}
+                <td >
+                    <div className="pointer">
+                        <ImPencil onClick={handleEditOnClick}/>
+                    </div>
+                </td>
+                <td>
+                    <div className="pointer">
+                        <ImCross onClick={handleDeleteOnClick}/>
+                    </div>
+                </td>
+            </tr>
+        );
+    }
 
     return (
+        <>
         <Container>
             <Row>
                 <Table striped bordered hover>
+                
                     <thead>
-                        <tr>
-                            {columns.map((column) => (
-                                <th className="px-3" key={column}>{column}</th>
-                            ))}
+                        <tr key="columnName">
+                            {columnNames}
+                            <th  colSpan={2}>Edit</th>
                         </tr>
+                        
                     </thead>
-                    {/* <tbody>
-                        {dataObjs.map( (obj) =>
-                            (
-                                <tr key={obj.name}>
-                                    {Object.values(obj)
-                                                .map((item) => 
-                                                    <td key={item}>{item}</td>
-                                                )
-                                    }
-                                    
-                                </tr>
-                            )
-                        )}
-                    </tbody> */}
+                    <tbody>{plantRows}</tbody>
+
                 </Table>
             </Row>
         </Container>
+        </>
     )
 }
 
