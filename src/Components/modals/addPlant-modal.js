@@ -18,23 +18,13 @@ import Col from 'react-bootstrap/Col';
 
 function AddPlantModal(props) {
 
-    // const [name, setName] = useState('');
-    // const [family, setFamily] = useState('');
-    // const [hardiness, setHardiness] = useState('');
-    // const [mature_size, setMature_size] = useState('');
-    // const [soil_type, setSoil_type] = useState('');
-    // const [sun_exporsure, setSunExporsure] = useState('');
-    // const [water, setWater] = useState('');
-    const [newObj, setNewObj] = useState({});
-    const [userPlants, setUserPlants] = useState([]);
+    // const [newObj, setNewObj] = useState({});
+    // const [userPlants, setUserPlants] = useState([]);
 
     const authContext = useAuth();
     let userGarden = authContext.garden;
 
-    useEffect(() => {
-
-    }, [])
-
+    
     let addPlantObjTemplate = {
         name: "",
         family: "",
@@ -45,11 +35,6 @@ function AddPlantModal(props) {
         water: "",
         image: "",
     }
-
-    // let testObj = {
-    //     test: "this is a test obj1"
-    // }
-
 
     const handleOnChange = (event) => {
         
@@ -65,7 +50,7 @@ function AddPlantModal(props) {
         let newObj = {...addPlantObjTemplate};
         let gardenArr = userGarden;
         gardenArr.push(newObj);
-        console.log(gardenArr);
+        // console.log(gardenArr);
         appPlant(gardenArr);
         event.preventDefault();
     }
@@ -73,9 +58,13 @@ function AddPlantModal(props) {
 
 
     const appPlant = async (arr) => {
-        let id = authContext.userId;
+        authContext.setGarden(arr); //need to update the garden in authContext
+        let id = authContext.userId; 
         const userRef = doc(db, "users", id);
-        await updateDoc(userRef, { Garden: arr });
+        await updateDoc(userRef, { Garden: arr })
+        .then((res) => {
+            props.onHide();
+        });
     }
 
 

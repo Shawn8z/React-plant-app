@@ -1,25 +1,56 @@
 
 import { Table, Container, Row } from "react-bootstrap";
 import { ImCross, ImPencil } from "react-icons/im";
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from "../../firebase-config";
+
+
 
 import "./firebase_table.css"
 import { useAuth } from "../authStuff/AuthProvider";
+import { useEffect, useState } from "react";
 
 
-function FirebaseTable() {
-
-
+function FirebaseTable( props ) {
 
     const authContext = useAuth();
-    let plants = authContext.garden;
+    let plantsArr = authContext.garden;
+    // console.log(plantsArr);
+    // let plants = authContext.garden;
+    let [plants, setPlants] = useState(plantsArr)
+    // console.log(plants);
 
-    const handleEditOnClick = (event) => {
-        console.log("you clicked edit");
-    }
+
+    useEffect(() => {
+        plantsArr = authContext.garden;
+        setPlants(plantsArr);
+        console.log("update");
+    }, [plantsArr]);
 
     const handleDeleteOnClick = (event) => {
-        console.log("you clicked delete plant");
+        let elementIndex = event.target.id;
+        plants = plants.filter((item, index) => index != elementIndex);
+        // also need to update the garden in authContext
+        authContext.setGarden(plants);
+        removePlant(plants);
     }
+
+    const removePlant = async (arr) => {
+        let id = authContext.userId;
+        const userRef = doc(db, "users", id);
+        await updateDoc(userRef, { Garden: arr })
+            .then((res) => {
+                authContext.getPlants(id)
+                .then((data) => {
+                    
+                    setPlants(data["Garden"]);
+                })
+            });
+        
+    }
+
+
+
 
     // prepare column names
     const columns = ["Name", "Family", "Hardiness", "Water", "Mature_size", "Soil_type", "Sun_exposure"];
@@ -30,17 +61,17 @@ function FirebaseTable() {
     
     let plantRows = null;
     if (plants) {
-        plantRows = plants.map((plant) => 
-            <tr key={plant.name}>
+        plantRows = plants.map((plant, index) => 
+            <tr key={index} >
                 {keys.map((key) => <td key={plant[key]}>{plant[key]}</td>)}
                 <td >
                     <div className="pointer">
-                        <ImPencil onClick={handleEditOnClick}/>
+                        <ImPencil onClick={props.show} />
                     </div>
                 </td>
                 <td>
                     <div className="pointer">
-                        <ImCross onClick={handleDeleteOnClick}/>
+                        <ImCross onClick={handleDeleteOnClick} id={index} />
                     </div>
                 </td>
             </tr>

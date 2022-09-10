@@ -33,6 +33,7 @@ function ProfileNavbar(props) {
 
 
     return (
+
         <div>
             <div className="navbar d-flex flex-md-row p-3 px-md-4 bg-white border-bottom">
 
@@ -55,8 +56,6 @@ function ProfileNavbar(props) {
             <div>{dataFromSearch}</div>
             
         </div>
-
-
 
     )
 }

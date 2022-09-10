@@ -2,19 +2,24 @@
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Stack from 'react-bootstrap/Stack';
 
-import Table from 'react-bootstrap/Table';
 
-import React, { useState } from "react";
+import { useState } from "react";
 import FullTable from '../tables/fullTable';
 import FirebaseTable from '../tables/firebase_table';
 import FilteredTable from '../tables/filteredTable';
-import FirebaseObj from '../firebase-obj-tag/firebaseObj';
+
+import EditPlantModal from '../modals/editPlant-modal';
 
 function ProfileBody(props) {
 
-    
+    const [showEditPlant, setShowEditPlant] = useState(false);
+
+    const handleCloseEditPlant = () => setShowEditPlant(false);
+    const handleshowEditPlant = () => {
+        setShowEditPlant(true);
+        // console.log("you clicked show");
+    }
 
     return (
         <Container>
@@ -24,7 +29,12 @@ function ProfileBody(props) {
 
                     {/* <FullTable /> */}
 
-                    <FirebaseTable />
+                    <EditPlantModal 
+                        show={showEditPlant}
+                        onHide={() => handleCloseEditPlant(false)}
+                    />
+
+                    <FirebaseTable show={() => handleshowEditPlant()}/>
 
                     <FilteredTable list = {props.incomingList} />
 

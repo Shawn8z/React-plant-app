@@ -16,24 +16,12 @@ import Col from 'react-bootstrap/Col';
 
 
 
-function AddPlantModal(props) {
+function EditPlantModal(props) {
 
-    // const [name, setName] = useState('');
-    // const [family, setFamily] = useState('');
-    // const [hardiness, setHardiness] = useState('');
-    // const [mature_size, setMature_size] = useState('');
-    // const [soil_type, setSoil_type] = useState('');
-    // const [sun_exporsure, setSunExporsure] = useState('');
-    // const [water, setWater] = useState('');
-    const [newObj, setNewObj] = useState({});
-    const [userPlants, setUserPlants] = useState([]);
 
     const authContext = useAuth();
     let userGarden = authContext.garden;
 
-    useEffect(() => {
-
-    }, [])
 
     let addPlantObjTemplate = {
         name: "",
@@ -45,10 +33,6 @@ function AddPlantModal(props) {
         water: "",
         image: "",
     }
-
-    // let testObj = {
-    //     test: "this is a test obj1"
-    // }
 
 
     const handleOnChange = (event) => {
@@ -176,4 +160,4 @@ function AddPlantModal(props) {
     )
 }
 
-export default AddPlantModal;
+export default EditPlantModal;

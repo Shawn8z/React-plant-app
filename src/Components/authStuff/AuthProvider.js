@@ -10,6 +10,7 @@ function AuthProvider( props ) {
     const [userId, setUserId] = useState(null);
     const [garden, setGarden] = useState(null);
     const setStatus = props.setStatus;
+    const getPlants = props.getGarden;
 
     useEffect(() => {
 
@@ -46,7 +47,7 @@ function AuthProvider( props ) {
     // }
 
     return (
-        <AuthContext.Provider value={{ loginStatus, userId, login, logout, setStatus, garden }}>
+        <AuthContext.Provider value={{ loginStatus, userId, login, logout, setStatus, garden, getPlants, setGarden}}>
             {props.children}
             {/* this button is for debuging */}
             {/* <button onClick={handleClick}>id and status in authProvider</button> */}

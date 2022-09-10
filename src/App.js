@@ -74,6 +74,7 @@ function App() {
         setId={setUserId}
         garden={userGarden}
         setGarden={setUserGarden}
+        getGarden={getGarden}
       >
 
         <Routes>
