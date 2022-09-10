@@ -9,6 +9,10 @@ function FilteredTable(props) {
 
     const filterdList = [...props.list]
 
+
+
+    
+
     return (
         <Container className="mt-5">
             <Row>
