@@ -6,6 +6,7 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 
 import { useState,  } from "react";
 import { Plants } from "../../plants";
+import { useAuth } from "../authStuff/AuthProvider";
 
 
 // toggle function for UI
@@ -26,29 +27,40 @@ function CustomToggle({ children, eventKey }) {
     )
 }
 
-function SearchAndFilter({ passDataToNav }) {
+
+
+function SearchAndFilterFireBase({ passDataToNav }) {
 
     const testList = <h1>This is testList from search</h1>;
     
+    
 
-    // put all the column names into an array
-    const allKeys = Object.keys(Plants[0]).slice(1);
-    const columnNames = allKeys.map((item) => item[0].toUpperCase() + item.slice(1));
+    // prepare column names
+    const columns = ["Name", "Family", "Hardiness", "Water", "Mature_size", "Soil_type", "Sun_exposure"];
+    
+    //prepare keys for calling plant attribute
+    const keys = columns.map((item) => item.toLowerCase());
+    let columnNames = columns.map((column) => <th className="px-3" key={column}>{column}</th>);
+
 
     // query holds the input value of the search input box
     const [query, setQuery] = useState("");
 
+
+    // create an array with the same lenth as number of columns 
+    // on the individual plant object, but filled with boolean false
     const [checkedState, setCheckedState] = useState(
-        // create an array with the same lenth as number of columns on the individual plant object, but filled with boolean false
-        allKeys.map(item => item = false)
+        columns.map(item => item = false)
     );
+
     //queryKeys is an array of column names that are put together based on the checkbox input
     const [queryKeys, setQueryKeys] = useState("empty");
+
+
 
     const handleQueryChange = (event) => {
         setQuery(event.target.value.toLowerCase());
     }
-
     const handleCheckBoxChange = (event) => {
         const target = event.target;
         const value = target.checked;
@@ -63,14 +75,12 @@ function SearchAndFilter({ passDataToNav }) {
         let tempKeyArr = [];
         checkedState.forEach((bool, index) => {
             if (bool) {
-                tempKeyArr.push(allKeys[index])
+                tempKeyArr.push(columns[index])
             }
         })
         setQueryKeys(tempKeyArr);
 
     }
-
-    
     const rawQueryChecker = () => {
         let queryArr = [];
 
@@ -91,7 +101,7 @@ function SearchAndFilter({ passDataToNav }) {
     }
     const searchAll = (dataObj) => {
         return dataObj.filter((itemObj) => (
-            allKeys.some((key) => itemObj[key].toLowerCase().includes(query)
+            columns.some((key) => itemObj[key].toLowerCase().includes(query)
             )
         ))
     }
@@ -104,9 +114,9 @@ function SearchAndFilter({ passDataToNav }) {
             )
         )
     }
-    const searchAllWithArrQuery = (dataObj, queryList) => {
+    const searchAllWithQuery = (dataObj, queryList) => {
         return dataObj.filter((itemObj) => (
-            allKeys.some((key) => 
+            columns.some((key) => 
                 queryList.some((quertItem) => itemObj[key].toLowerCase().includes(quertItem))
             )
         ))
@@ -122,7 +132,7 @@ function SearchAndFilter({ passDataToNav }) {
         if (isFiltered) {
             passDataOut(searchWithArrQuery(Plants, val));
         } else {
-            passDataOut(searchAllWithArrQuery(Plants, val));
+            passDataOut(searchAllWithQuery(Plants, val));
         }
 
         event.preventDefault();
@@ -195,4 +205,4 @@ function SearchAndFilter({ passDataToNav }) {
 }
 
 
-export default SearchAndFilter;
+export default SearchAndFilterFireBase;

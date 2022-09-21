@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { auth } from "../../firebase-config";
 import { useAuth } from '../authStuff/AuthProvider';
 import SearchAndFilter from "../searchAndFilter/searchAndFilter";
+import SearchAndFilterFireBase from "../searchAndFilter/searchAndFilter_firebase";
 
 
 function ProfileNavbar(props) {

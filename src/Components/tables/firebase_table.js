@@ -11,6 +11,11 @@ import { useAuth } from "../authStuff/AuthProvider";
 import { useEffect, useState } from "react";
 
 
+// >>>>REMINDER<<<<
+// remember to fix the bug where after deleting plants, if you try to add plants right after,
+// the table would not update, need to refresh the page and its normal again
+// >>>>REMINDER<<<<
+
 function FirebaseTable( props ) {
 
     const authContext = useAuth();
@@ -21,21 +26,23 @@ function FirebaseTable( props ) {
 
 
     useEffect(() => {
-
+        // console.log("firebase table updated")
         plantsArr = authContext.garden;
         setPlants(plantsArr);
+        // console.log(plantsArr);
+        // console.log(plants);
 
     }, [plantsArr]);
 
     const handleDeleteOnClick = (event) => {
         
-        // console.log(event.target.parentElement.id)
+        console.log(event.target.parentElement.id)
         let elementIndex = event.target.parentElement.id;
-        let filtedArr = plants.filter((item, index) => index != elementIndex);
-        // console.log(filtedArr);
+        let filteredArr = plants.filter((item, index) => index != elementIndex);
+        // console.log(filteredArr);
 
-        authContext.setGarden(filtedArr);
-        removePlant(filtedArr);
+        setPlants(filteredArr);
+        removePlant(filteredArr);
 
     }
 

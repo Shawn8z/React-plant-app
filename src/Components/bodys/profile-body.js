@@ -25,9 +25,6 @@ function ProfileBody(props) {
         <Container>
             <Row className="justify-content-md-center text-center" lg={6}>
                 <Col lg={10}>
-                    {/* <BasicTable /> */}
-
-                    {/* <FullTable /> */}
 
                     <EditPlantModal 
                         show={showEditPlant}
