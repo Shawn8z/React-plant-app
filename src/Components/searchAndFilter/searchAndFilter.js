@@ -84,17 +84,17 @@ function SearchAndFilter({ passDataToNav }) {
     }
 
     // these search work with query as a whole string
-    const search = (dataObj) => {
-        return dataObj.filter((itemObj) => 
-            queryKeys.some((key) => itemObj[key].toLowerCase().includes(query)
-        ))
-    }
-    const searchAll = (dataObj) => {
-        return dataObj.filter((itemObj) => (
-            allKeys.some((key) => itemObj[key].toLowerCase().includes(query)
-            )
-        ))
-    }
+    // const search = (dataObj) => {
+    //     return dataObj.filter((itemObj) => 
+    //         queryKeys.some((key) => itemObj[key].toLowerCase().includes(query)
+    //     ))
+    // }
+    // const searchAll = (dataObj) => {
+    //     return dataObj.filter((itemObj) => (
+    //         allKeys.some((key) => itemObj[key].toLowerCase().includes(query)
+    //         )
+    //     ))
+    // }
 
     // these search support query seperated with ", "
     const searchWithArrQuery = (dataObj, queryList) => {
